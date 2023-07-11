@@ -5,14 +5,22 @@
         Product Registration
     </div>
     <br />
-    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;padding:15px" align="center"> 
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px" align="center">
 
-        <table class="w-100">
+        <table class="w-100" style="display: flex; align-items: center; justify-content: center;">
             <tr>
-                <td style="width: 326px">
+                <td style="width: 326px; height: 27px;">
+                    <asp:Label ID="labelproductid" runat="server" Font-Bold="True" Font-Size="Medium" Text="Product_Id"></asp:Label>
+                </td>
+                <td style="height: 27px">
+                    <asp:TextBox ID="txtproductid" runat="server" Font-Size="Medium" Width="200px"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 326px; height: 27px;">
                     <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Medium" Text="Name"></asp:Label>
                 </td>
-                <td>
+                <td style="height: 27px">
                     <asp:TextBox ID="txtname" runat="server" Font-Size="Medium" Width="200px"></asp:TextBox>
                 </td>
             </tr>
@@ -53,26 +61,51 @@
                     <asp:Label ID="Label6" runat="server" Font-Bold="True" Font-Size="Medium" Text="Status"></asp:Label>
                 </td>
                 <td style="height: 22px">
-                    <asp:CheckBox ID="checkregular" runat="server" BorderStyle="None" Font-Bold="True" Font-Italic="False" Font-Size="Medium" Text="Available" Width="94px" style="margin-left: 0px" />
-                    <asp:CheckBox ID="checkinregular" runat="server" Font-Bold="True" Font-Size="Medium" Height="20px" style="margin-left: 0px" Text="Unavailable" />
+                    <asp:CheckBox ID="checkregular" runat="server" BorderStyle="None" Font-Bold="True" Font-Italic="False" Font-Size="Medium" Text="Available" Width="94px" Style="margin-left: 0px" />
+                    <asp:CheckBox ID="checkinregular" runat="server" Font-Bold="True" Font-Size="Medium" Height="20px" Style="margin-left: 0px" Text="Unavailable" />
                 </td>
             </tr>
             <tr>
                 <td style="width: 326px; height: 23px;"></td>
                 <td style="height: 23px"></td>
             </tr>
-            <tr>
-                <td style="width: 326px">&nbsp;</td>
-                <td style="margin: 20px 15px 30px 40px;">
-                    <asp:Button ID="btnsave" runat="server" BackColor="Gray" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Save" Width="87px" />
-                    <asp:Button ID="btndelete" runat="server" BackColor="Gray" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Delete" Width="87px" />
-                </td>
-            </tr>
         </table>
+        <div style="display: flex; justify-content: flex-start; margin-bottom: 12px;">
+            <asp:Button ID="btnsave" runat="server" BackColor="Gray" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Save" Width="87px" CssClass="offset-sm-0" BorderStyle="Double" />
+            <asp:Button ID="btndelete" runat="server" BackColor="Gray" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Delete" Width="87px" OnClientClick="return confirm('Are you sure to delete?')" />
+            <asp:Button ID="btnuptade" runat="server" BackColor="Gray" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Update" Width="87px" />
+            <asp:Button ID="btnsearch" runat="server" BackColor="Gray" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Search" Width="87px" CssClass="offset-sm-0" />
+        </div>
         <div align="center">
             <br />
-            <asp:GridView ID="gridview" runat="server" BackColor="#999999" ForeColor="#333333" Width="80%">
+            <asp:GridView ID="gridview" runat="server" Width="80%" BackColor="Silver" BorderColor="#666666" ShowHeaderWhenEmpty="True" AllowPaging="True"
+                AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="PRODUCT_ID" ForeColor="White" Height="106px">
+                <Columns>
+                    <asp:BoundField DataField="PRODUCT_ID" HeaderText="PRODUCT_ID" SortExpression="PRODUCT_ID">
+                        <HeaderStyle BackColor="Black" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="NAME" HeaderText="NAME" SortExpression="NAME">
+                        <HeaderStyle BackColor="Black" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="SPECIFICATION" HeaderText="SPECIFICATION" SortExpression="SPECIFICATION">
+                        <HeaderStyle BackColor="Black" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="QUANTITY" HeaderText="QUANTITY" SortExpression="QUANTITY">
+                        <HeaderStyle BackColor="Black" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="COLOR" HeaderText="COLOR" SortExpression="COLOR">
+                        <HeaderStyle BackColor="Black" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="REGISTRATION_DATE" HeaderText="REGISTRATION_DATE" SortExpression="REGISTRATION_DATE" DataFormatString="{0:dd/MM/yyyy}">
+                        <HeaderStyle BackColor="Black" s/>
+                    </asp:BoundField>
+                    <asp:BoundField DataField="STATUS" HeaderText="STATUS" SortExpression="STATUS">
+                        <HeaderStyle BackColor="Black" />
+                    </asp:BoundField>
+                </Columns>
             </asp:GridView>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PRODUCT_REGISTERConnectionString %>" ProviderName="<%$ ConnectionStrings:PRODUCT_REGISTERConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [PRODUCTS]"></asp:SqlDataSource>
+            <br />
 
         </div>
 

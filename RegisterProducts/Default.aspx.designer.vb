@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class _Default
 
     '''<summary>
+    '''Controle labelproductid.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents labelproductid As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Controle txtproductid.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents txtproductid As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Controle Label1.
     '''</summary>
     '''<remarks>
@@ -149,6 +167,24 @@ Partial Public Class _Default
     Protected WithEvents btndelete As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''Controle btnuptade.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents btnuptade As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Controle btnsearch.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents btnsearch As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''Controle gridview.
     '''</summary>
     '''<remarks>
@@ -156,4 +192,13 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents gridview As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''Controle SqlDataSource1.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents SqlDataSource1 As Global.System.Web.UI.WebControls.SqlDataSource
 End Class
