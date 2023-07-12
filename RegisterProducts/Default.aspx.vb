@@ -6,25 +6,32 @@ Public Class _Default
     Private strStringConnection As String = ConfigurationManager.ConnectionStrings("PRODUCT_REGISTERConnectionString").ToString
     Private connection As New SqlConnection(strStringConnection)
 
+    Private PRODUCT_ID As Integer
+    Private NAME As String
+    Private SPECIFICATION As String
+    Private QUANTITY As Integer
+    Private COLOR As String
+    Private REGISTRATION_DATE As DateTime
+    Private STATUS As String
+
     Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnsave.Click
 
-        Dim nameProduct As String = txtname.Text
-        Dim specification As String = txtspecification.Text
-        Dim quantity As Double = txtquantity.Text
-        Dim color As String = txtcolor.Text
-        Dim regitrationDate As DateTime = txtregistrationdate.Text
-        Dim status As String
+        NAME = txtname.Text
+        SPECIFICATION = txtspecification.Text
+        QUANTITY = txtquantity.Text
+        COLOR = txtcolor.Text
+        REGISTRATION_DATE = txtregistrationdate.Text
 
         If checkregular.Checked Then
-            status = "Available"
+            STATUS = "Available"
         Else
-            status = "Unavailable"
+            STATUS = "Unavailable"
         End If
 
         Try
             connection.Open()
 
-            Dim command As New SqlCommand("INSERT INTO PRODUCTS VALUES ('" & nameProduct & "', '" & specification & "', '" & quantity & "', '" & color & "', '" & regitrationDate & "', '" & status & "')", connection)
+            Dim command As New SqlCommand("INSERT INTO PRODUCTS VALUES ('" & NAME & "', '" & SPECIFICATION & "', '" & QUANTITY & "', '" & COLOR & "', '" & REGISTRATION_DATE & "', '" & STATUS & "')", connection)
 
             command.ExecuteNonQuery()
 
@@ -52,12 +59,12 @@ Public Class _Default
     End Sub
 
     Protected Sub btndelete_Click(sender As Object, e As EventArgs) Handles btndelete.Click
-        Dim idProduct As Integer = txtproductid.Text
+        PRODUCT_ID = txtproductid.Text
 
         Try
             connection.Open()
 
-            Dim command As New SqlCommand("DELETE PRODUCTS WHERE PRODUCT_ID = '" & idProduct & "'", connection)
+            Dim command As New SqlCommand("DELETE PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
             command.ExecuteNonQuery()
 
             MsgBox("Successfully deleted!", MsgBoxStyle.Information, "Message")
@@ -70,13 +77,12 @@ Public Class _Default
     End Sub
 
     Protected Sub btnuptade_Click(sender As Object, e As EventArgs) Handles btnuptade.Click
-        Dim idProduct As Integer = txtproductid.Text
-        Dim nameProduct As String = txtname.Text
-        Dim specification As String = txtspecification.Text
-        Dim quantity As Double = txtquantity.Text
-        Dim color As String = txtcolor.Text
-        Dim regitrationDate As DateTime = txtregistrationdate.Text
-        Dim status As String
+        PRODUCT_ID = txtproductid.Text
+        NAME = txtname.Text
+        SPECIFICATION = txtspecification.Text
+        QUANTITY = txtquantity.Text
+        COLOR = txtcolor.Text
+        REGISTRATION_DATE = txtregistrationdate.Text
 
         If checkregular.Checked Then
             status = "Available"
@@ -87,7 +93,7 @@ Public Class _Default
         Try
             connection.Open()
 
-            Dim command As New SqlCommand("UPDATE PRODUCTS SET NAME = '" & nameProduct & "', SPECIFICATION = '" & specification & "', QUANTITY= '" & quantity & "', COLOR= '" & color & "',REGISTRATION_DATE= '" & regitrationDate & "', STATUS='" & status & "' WHERE PRODUCT_ID = '" & idProduct & "'", connection)
+            Dim command As New SqlCommand("UPDATE PRODUCTS SET NAME = '" & NAME & "', SPECIFICATION = '" & SPECIFICATION & "', QUANTITY= '" & QUANTITY & "', COLOR= '" & COLOR & "',REGISTRATION_DATE= '" & REGISTRATION_DATE & "', STATUS='" & STATUS & "' WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
 
             command.ExecuteNonQuery()
 
@@ -107,11 +113,11 @@ Public Class _Default
     End Sub
 
     Protected Sub btnsearch_Click(sender As Object, e As EventArgs) Handles btnsearch.Click
-        Dim idProduct As Integer = txtproductid.Text
+        PRODUCT_ID = txtproductid.Text
 
         connection = New SqlConnection(strStringConnection)
 
-        Dim command As New SqlCommand("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & idProduct & "'", connection)
+        Dim command As New SqlCommand("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
         Dim sd As New SqlDataAdapter(command)
         Dim dt As New DataTable
 
@@ -119,5 +125,57 @@ Public Class _Default
 
         gridview.DataSource = dt
         gridview.DataBind()
+    End Sub
+
+    Protected Sub gridview_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gridview.SelectedIndexChanged
+        connection = New SqlConnection(strStringConnection)
+
+        Try
+            connection.Open()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Error!")
+        End Try
+
+        PRODUCT_ID = gridview.SelectedValue
+
+        Dim command As New SqlCommand("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
+        Dim reader As SqlDataReader
+
+        reader = command.ExecuteReader()
+
+        If reader.HasRows Then
+
+            While reader.Read()
+                txtproductid.Text = reader("PRODUCT_ID").ToString()
+                txtname.Text = reader("NAME").ToString()
+                txtspecification.Text = reader("SPECIFICATION").ToString()
+                txtquantity.Text = reader("QUANTITY").ToString()
+                txtcolor.Text = reader("COLOR").ToString()
+                txtregistrationdate.Text = reader("REGISTRATION_DATE").ToString
+
+                If (reader("STATUS").ToString.ToLower().Equals("available")) Then
+                    checkregular.Checked = True
+                    checkinregular.Checked = False
+                Else
+                    checkinregular.Checked = True
+                    checkregular.Checked = False
+                End If
+
+            End While
+        End If
+
+        reader.Close()
+        connection.Close()
+
+    End Sub
+
+    Protected Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
+        txtproductid.Text = ""
+        txtname.Text = ""
+        txtspecification.Text = ""
+        txtcolor.Text = ""
+        txtquantity.Text = ""
+        checkregular.Checked = False
+        checkinregular.Checked = False
     End Sub
 End Class

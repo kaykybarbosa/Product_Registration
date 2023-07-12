@@ -149,6 +149,15 @@ Partial Public Class _Default
     Protected WithEvents checkinregular As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''Controle btnsearch.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents btnsearch As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''Controle btnsave.
     '''</summary>
     '''<remarks>
@@ -156,15 +165,6 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents btnsave As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''Controle btndelete.
-    '''</summary>
-    '''<remarks>
-    '''Campo gerado automaticamente.
-    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-    '''</remarks>
-    Protected WithEvents btndelete As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Controle btnuptade.
@@ -176,13 +176,22 @@ Partial Public Class _Default
     Protected WithEvents btnuptade As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Controle btnsearch.
+    '''Controle btnclear.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents btnsearch As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnclear As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Controle btndelete.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents btndelete As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Controle gridview.
