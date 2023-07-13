@@ -131,22 +131,22 @@ Partial Public Class _Default
     Protected WithEvents Label6 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Controle checkregular.
+    '''Controle checkavailable.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents checkregular As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents checkavailable As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''Controle checkinregular.
+    '''Controle checkiunavailable.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents checkinregular As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents checkiunavailable As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''Controle btnsearch.
@@ -210,4 +210,13 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents SqlDataSource1 As Global.System.Web.UI.WebControls.SqlDataSource
+
+    '''<summary>
+    '''Controle lblProducts.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents lblProducts As Global.System.Web.UI.WebControls.Label
 End Class

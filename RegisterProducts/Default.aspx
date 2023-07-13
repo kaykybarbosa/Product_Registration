@@ -7,19 +7,17 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     </head>
     <body>
-        <div style="background-color:gray; color: black; font-size:xx-large;" align="center"> Product Registration </div>
-    <br />
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px" align="center">
-        
-        <div style="display: flex;">
-            <table class="w-100" style="display: flex; align-items: center; justify-content: center;">
+        <div style=" font-size:xx-large;" align="center" class="bg-primary-subtle"> Product Registration </div>
+        <br />
+    
+        <div class="container" style="display: flex; flex-direction: row; align-items: center; justify-content: center">
+            <table class="w-50" style="display: flex; align-items: center; justify-content: center;">
                 <tr>
                     <td style="width: 326px; height: 36px;">
-                        <asp:Label ID="labelproductid" runat="server" Font-Bold="True" Font-Size="Medium" Text="Product_Id"></asp:Label>
+                        <asp:Label ID="labelproductid" runat="server" Font-Bold="True" Font-Size="Medium" Text="Nº Product"></asp:Label>
                     </td>
                     <td style="height: 27px">
                         <asp:TextBox ID="txtproductid" runat="server" Font-Size="Medium" Width="200px"></asp:TextBox>
-                    
                     </td>
                 </tr>
                 <tr>
@@ -58,54 +56,53 @@
                     <td style="width: 326px; height: 36px;">
                         <asp:Label ID="Label5" runat="server" Font-Bold="True" Font-Size="Medium" Text="Registration Date"></asp:Label>
                     </td>
-                    <td style="height: 19px">
+                    <td style="height: 36px">
                         <asp:TextBox ID="txtregistrationdate" runat="server" CssClass="accordion-header" Font-Size="Medium" Height="25px" Width="200px" TextMode="Date"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 326px; height: 36px;">
-                        <asp:Label ID="Label6" runat="server" Font-Bold="True" Font-Size="Medium" Text="Status"></asp:Label>
+                        <asp:Label ID="Label6" runat="server" Font-Bold="True" Font-Size="Medium" Text="Status" ></asp:Label>
                     </td>
                     <td style="height: 36px">
-                        <asp:CheckBox ID="checkregular" runat="server" BorderStyle="None" Font-Bold="True" Font-Italic="False" Font-Size="Medium" Text="Available" Width="94px" Style="margin-left: 0px" />
-                        <asp:CheckBox ID="checkinregular" runat="server" Font-Bold="True" Font-Size="Medium" Height="20px" Style="margin-left: 0px" Text="Unavailable" />
+                        <asp:CheckBox ID="checkavailable" runat="server" BorderStyle="None" Font-Bold="True" Font-Italic="False" Font-Size="Medium" Text="Available" Width="94px" Style="margin-left: 0px" />
+                        <asp:CheckBox ID="checkiunavailable" runat="server" Font-Bold="True" Font-Size="Medium" Height="20px" Style="margin-left: 0px" Text="Unavailable" />
                     </td>
                 </tr>
             </table>
-            <div style=" margin-left: 20px; border-radius: 12px;">
-                <asp:Button ID="btnsearch" runat="server" BackColor="#0099FF" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Search" Width="87px" CssClass="btn" />
+            <div style=" align-self: flex-start;">
+                <asp:Button ID="btnsearch" runat="server" Font-Bold="True" Font-Size="Medium" Text="Search" Width="87px" CssClass="btn btn-outline-secondary btn-sm"/>
             </div>
         </div>
         
         <br />
-        <div style="display: inline-block; align-items: center;">
-            <div style="display: inline-block; margin-right: 13px; border-radius: 12px;"> <asp:Button ID="btnsave" runat="server" BackColor="#0099FF" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Save" Width="87px" CssClass="btn"/> </div>
-            <div style="display: inline-block; margin-right: 13px; border-radius: 12px;"> <asp:Button ID="btnuptade" runat="server" BackColor="#0099FF" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Update" Width="87px" CssClass="btn" /> </div>
-            <div style="display: inline-block; border-radius: 13px;"> <asp:Button ID="btnclear" runat="server" BackColor="#0099FF" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Clear" Width="87px" CssClass="btn" /> </div>
-            <div style="display: inline-block; margin-left: 13px; border-radius: 12px;"> <asp:Button ID="btndelete" runat="server" BackColor="#CC3300" BorderColor="#666666" Font-Bold="True" Font-Size="Medium" Text="Delete" Width="87px" CssClass="btn" OnClientClick="return confirm('Are you sure to delete?')" /> </div>
+        <div style="display: inline-block; align-items: center; display: flex; justify-content: center">
+            <div style="display: inline-block; margin-right: 13px;"> <asp:Button ID="btnsave" runat="server" Font-Bold="True" Font-Size="Medium" Text="Save" Width="87px" CssClass="btn btn-outline-primary btn-sm" OnClientClick="alert('Successfuly Registered Product!')" /> </div>
+            <div style="display: inline-block; margin-right: 13px;"> <asp:Button ID="btnuptade" runat="server" Font-Bold="True" Font-Size="Medium" Text="Update" Width="87px" CssClass="btn btn-outline-primary btn-sm" OnClientClick="alert('Successfully updated!')" /> </div>
+            <div style="display: inline-block; border-radius: 13px;"> <asp:Button ID="btnclear" runat="server" Font-Bold="True" Font-Size="Medium" Text="Clear" Width="87px" CssClass="btn btn-outline-primary btn-sm" /> </div>
+            <div style="display: inline-block; margin-left: 13px;"> <asp:Button ID="btndelete" runat="server" Font-Bold="True" Font-Size="Medium" Text="Delete" Width="87px" CssClass="btn btn-outline-primary btn-sm" OnClientClick="return confirm('Are you sure to delete?')" /> </div>
         </div>
         <br />
 
         <br />
         <div class="container">
-            <asp:GridView ID="gridview" CssClass="table table-responsive table-bordered table-condesed table-hover" runat="server" AutoGenerateColumns="False" DataKeyNames="PRODUCT_ID" HorizontalAlign="Center" AutoGenerateSelectButton="True">
+            <asp:GridView ID="gridview" CssClass=" table table-responsive table-bordered table-condesed table-hover" runat="server" AllowPaging="true" PageSize="10" AutoGenerateColumns="False" DataKeyNames="PRODUCT_ID" HorizontalAlign="Center" AutoGenerateEditButton="True">
                 <Columns>
-                    <asp:BoundField DataField="PRODUCT_ID" HeaderText="PRODUCT_ID" InsertVisible="False" ReadOnly="True" SortExpression="PRODUCT_ID" />
+                    <asp:BoundField DataField="PRODUCT_ID" HeaderText="Nº" SortExpression="PRODUCT_ID" ItemStyle-HorizontalAlign="Center"/>
                     <asp:BoundField DataField="NAME" HeaderText="NAME" SortExpression="NAME" />
                     <asp:BoundField DataField="SPECIFICATION" HeaderText="SPECIFICATION" SortExpression="SPECIFICATION" />
-                    <asp:BoundField DataField="QUANTITY" HeaderText="QUANTITY" SortExpression="QUANTITY" />
-                    <asp:BoundField DataField="COLOR" HeaderText="COLOR" SortExpression="COLOR" />
-                    <asp:BoundField DataField="REGISTRATION_DATE" HeaderText="REGISTRATION_DATE" SortExpression="REGISTRATION_DATE" DataFormatString="{0:dd/MM/yyyy}"/>
-                    <asp:BoundField DataField="STATUS" HeaderText="STATUS" SortExpression="STATUS" />
+                    <asp:BoundField DataField="QUANTITY" HeaderText="QUANTITY" SortExpression="QUANTITY" ItemStyle-HorizontalAlign="Center"/>
+                    <asp:BoundField DataField="COLOR" HeaderText="COLOR" SortExpression="COLOR"/>
+                    <asp:BoundField DataField="REGISTRATION_DATE" HeaderText="REGISTRATION_DATE" SortExpression="REGISTRATION_DATE" DataFormatString="{0:dd/MM/yyyy}" ItemStyle-HorizontalAlign="Center"/>
+                    <asp:BoundField DataField="STATUS" HeaderText="STATUS" SortExpression="STATUS" ItemStyle-HorizontalAlign="Center"/>
                 </Columns>
                 <HeaderStyle HorizontalAlign="Center" Font-Size="Medium" CssClass="table table-primary"/>
                 <PagerStyle BorderStyle="Solid" />
                 <RowStyle BorderStyle="Solid" />
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PRODUCT_REGISTERConnectionString %>" SelectCommand="SELECT * FROM [PRODUCTS]"></asp:SqlDataSource>
+            <asp:Label ID="lblProducts" runat="server" Text="Label" CssClass="badge" BackColor="#66CCFF"></asp:Label>
         </div>
-
-    </div>
 
     </body>
     </html>

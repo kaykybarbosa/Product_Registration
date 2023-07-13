@@ -14,6 +14,10 @@ Public Class _Default
     Private REGISTRATION_DATE As DateTime
     Private STATUS As String
 
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        ListProduct()
+    End Sub
+
     Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnsave.Click
 
         NAME = txtname.Text
@@ -22,7 +26,7 @@ Public Class _Default
         COLOR = txtcolor.Text
         REGISTRATION_DATE = txtregistrationdate.Text
 
-        If checkregular.Checked Then
+        If checkavailable.Checked Then
             STATUS = "Available"
         Else
             STATUS = "Unavailable"
@@ -35,9 +39,8 @@ Public Class _Default
 
             command.ExecuteNonQuery()
 
-            MsgBox("Successfylly saved!", MsgBoxStyle.Information, "Message")
-
             ListProduct()
+            Clear()
 
             connection.Close()
         Catch ex As Exception
@@ -48,6 +51,12 @@ Public Class _Default
     Protected Sub ListProduct()
         connection = New SqlConnection(strStringConnection)
 
+        Try
+            connection.Open()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "Error!")
+        End Try
+
         Dim command As New SqlCommand("SELECT * FROM PRODUCTS", connection)
         Dim sd As New SqlDataAdapter(command)
         Dim dt As New DataTable
@@ -56,6 +65,15 @@ Public Class _Default
 
         gridview.DataSource = dt
         gridview.DataBind()
+
+        connection.Close()
+
+        lblProducts_Quantity()
+
+    End Sub
+
+    Protected Sub lblProducts_Quantity()
+        lblProducts.Text = DirectCast(gridview.DataSource, DataTable).Rows.Count & " product(s)"
     End Sub
 
     Protected Sub btndelete_Click(sender As Object, e As EventArgs) Handles btndelete.Click
@@ -67,9 +85,9 @@ Public Class _Default
             Dim command As New SqlCommand("DELETE PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
             command.ExecuteNonQuery()
 
-            MsgBox("Successfully deleted!", MsgBoxStyle.Information, "Message")
-
             ListProduct()
+            Clear()
+
             connection.Close()
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Error")
@@ -84,10 +102,10 @@ Public Class _Default
         COLOR = txtcolor.Text
         REGISTRATION_DATE = txtregistrationdate.Text
 
-        If checkregular.Checked Then
-            status = "Available"
+        If checkavailable.Checked Then
+            STATUS = "Available"
         Else
-            status = "Unavailable"
+            STATUS = "Unavailable"
         End If
 
         Try
@@ -97,9 +115,8 @@ Public Class _Default
 
             command.ExecuteNonQuery()
 
-            MsgBox("Successfylly uptaded!", MsgBoxStyle.Information, "Message")
-
             ListProduct()
+            Clear()
 
             connection.Close()
         Catch ex As Exception
@@ -108,14 +125,16 @@ Public Class _Default
 
     End Sub
 
-    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        ListProduct()
-    End Sub
-
     Protected Sub btnsearch_Click(sender As Object, e As EventArgs) Handles btnsearch.Click
         PRODUCT_ID = txtproductid.Text
 
         connection = New SqlConnection(strStringConnection)
+
+        Try
+            connection.Open()
+        Catch ex As Exception
+
+        End Try
 
         Dim command As New SqlCommand("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
         Dim sd As New SqlDataAdapter(command)
@@ -125,6 +144,8 @@ Public Class _Default
 
         gridview.DataSource = dt
         gridview.DataBind()
+
+        connection.Close()
     End Sub
 
     Protected Sub gridview_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gridview.SelectedIndexChanged
@@ -136,6 +157,10 @@ Public Class _Default
             MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Error!")
         End Try
 
+        'If txtproductid.Text.Equals("") Then
+        'Else
+        'PRODUCT_ID = txtproductid.Text
+        'End If
         PRODUCT_ID = gridview.SelectedValue
 
         Dim command As New SqlCommand("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
@@ -151,14 +176,14 @@ Public Class _Default
                 txtspecification.Text = reader("SPECIFICATION").ToString()
                 txtquantity.Text = reader("QUANTITY").ToString()
                 txtcolor.Text = reader("COLOR").ToString()
-                txtregistrationdate.Text = reader("REGISTRATION_DATE").ToString
+                txtregistrationdate.Text = Left(reader("REGISTRATION_DATE").ToString, 10)
 
                 If (reader("STATUS").ToString.ToLower().Equals("available")) Then
-                    checkregular.Checked = True
-                    checkinregular.Checked = False
+                    checkavailable.Checked = True
+                    checkiunavailable.Checked = False
                 Else
-                    checkinregular.Checked = True
-                    checkregular.Checked = False
+                    checkiunavailable.Checked = True
+                    checkavailable.Checked = False
                 End If
 
             End While
@@ -175,7 +200,19 @@ Public Class _Default
         txtspecification.Text = ""
         txtcolor.Text = ""
         txtquantity.Text = ""
-        checkregular.Checked = False
-        checkinregular.Checked = False
+        txtregistrationdate.Text = ""
+        checkavailable.Checked = False
+        checkiunavailable.Checked = False
     End Sub
+    Private Sub Clear()
+        txtproductid.Text = ""
+        txtname.Text = ""
+        txtspecification.Text = ""
+        txtcolor.Text = ""
+        txtquantity.Text = ""
+        txtregistrationdate.Text = ""
+        checkavailable.Checked = False
+        checkiunavailable.Checked = False
+    End Sub
+
 End Class
