@@ -14,193 +14,193 @@ Option Explicit On
 Partial Public Class _Default
 
     '''<summary>
-    '''Controle labelproductid.
+    '''Controle lblProductid.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents labelproductid As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblProductid As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Controle txtproductid.
+    '''Controle txtProductid.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents txtproductid As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtProductid As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Controle Label1.
+    '''Controle lblName.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblName As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Controle txtname.
+    '''Controle txtName.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents txtname As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Controle Label2.
+    '''Controle lblSpecification.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblSpecification As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Controle txtspecification.
+    '''Controle txtSpecification.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents txtspecification As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtSpecification As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Controle Label3.
+    '''Controle lblQuantity.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents Label3 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblQuantity As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Controle txtquantity.
+    '''Controle txtQuantity.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents txtquantity As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtQuantity As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Controle Label4.
+    '''Controle lblColor.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents Label4 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblColor As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Controle txtcolor.
+    '''Controle txtColor.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents txtcolor As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtColor As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Controle Label5.
+    '''Controle lblRegistrationDate.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents Label5 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblRegistrationDate As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Controle txtregistrationdate.
+    '''Controle txtRegistrationDate.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents txtregistrationdate As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtRegistrationDate As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Controle Label6.
+    '''Controle lblStatus.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents Label6 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblStatus As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Controle checkavailable.
+    '''Controle checkAvailable.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents checkavailable As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents checkAvailable As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''Controle checkiunavailable.
+    '''Controle checkUnavailable.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents checkiunavailable As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents checkUnavailable As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''Controle btnsearch.
+    '''Controle btnSearch.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents btnsearch As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Controle btnsave.
+    '''Controle btnSave.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents btnsave As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnSave As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Controle btnuptade.
+    '''Controle btnUptade.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents btnuptade As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnUptade As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Controle btnclear.
+    '''Controle btnClear.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents btnclear As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnClear As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Controle btndelete.
+    '''Controle btnDelete.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents btndelete As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Controle gridview.
+    '''Controle gridView.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents gridview As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents gridView As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
     '''Controle SqlDataSource1.
