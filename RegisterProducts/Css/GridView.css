@@ -1,0 +1,106 @@
+﻿*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+}
+
+.counter {
+    font-family: Verdana, Helvetica, sans-serif; 
+    font-size: 13px;
+    float: right;
+    font-weight: bold;
+    background-color: #78d0ed;
+    color: #2653e9;
+}
+
+.title {
+    font-size: xx-large;
+    text-align: center;
+}
+
+.required{
+    color: red;
+    margin-left: 5px;
+}
+
+.divForm {
+    margin-left: 28%;
+    justify-content: center;
+    margin-top: 2%;
+ 
+
+
+    /*display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 2%;
+    margin-left: 28%;*/
+}
+
+.fields{
+    margin-bottom: 0.2em;
+    
+    /*Chat*/
+/*    margin-right: 1em;
+    display: flex;
+    align-items: center*/;
+
+}
+
+/*Chat*/
+.fields label{
+    font-weight: bold;
+    font-size: medium;
+    margin-right: 10px;
+}
+
+span{
+    display: block;
+    margin-bottom: 0.2em;
+}
+
+.divForm, .fields{
+    float: left;
+    margin-right: 1em;
+}
+
+.btnSearch {
+    float: right;
+    align-self: flex-start;
+    margin-left: 5%;
+    margin-top: 27px;
+    font-size: medium;
+}
+
+.textBox{
+    border-radius: 5px;
+    padding: 2%;
+    display: block;
+    max-width: 500px;
+}
+
+.textBox:focus{
+    background-color: #c2c2c2;
+}
+
+.checkBox{
+    display: inline-block;
+}
+
+.left{
+    margin-left: 10px;
+}
+
+.divBtns {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 4%;
+    margin-block-end: 3%;
+    font-size: medium;
+}
+
