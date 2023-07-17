@@ -50,24 +50,6 @@ Partial Public Class _Default
     Protected WithEvents txtName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Controle lblSpecification.
-    '''</summary>
-    '''<remarks>
-    '''Campo gerado automaticamente.
-    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-    '''</remarks>
-    Protected WithEvents lblSpecification As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Controle txtSpecification.
-    '''</summary>
-    '''<remarks>
-    '''Campo gerado automaticamente.
-    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-    '''</remarks>
-    Protected WithEvents txtSpecification As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
     '''Controle lblQuantity.
     '''</summary>
     '''<remarks>
@@ -84,6 +66,15 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents txtQuantity As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Controle btnSearch.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Controle lblColor.
@@ -149,13 +140,22 @@ Partial Public Class _Default
     Protected WithEvents checkUnavailable As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''Controle btnSearch.
+    '''Controle lblSpecification.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lblSpecification As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Controle txtSpecification.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents txtSpecification As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''Controle btnSave.
@@ -176,15 +176,6 @@ Partial Public Class _Default
     Protected WithEvents btnUptade As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Controle btnClear.
-    '''</summary>
-    '''<remarks>
-    '''Campo gerado automaticamente.
-    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-    '''</remarks>
-    Protected WithEvents btnClear As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''Controle btnDelete.
     '''</summary>
     '''<remarks>
@@ -192,6 +183,15 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Controle btnClear.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents btnClear As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Controle gridView.
