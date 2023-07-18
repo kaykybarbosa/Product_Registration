@@ -97,36 +97,6 @@ Public Class _Default
         lblProducts.Text = DirectCast(gridView.DataSource, DataTable).Rows.Count & " product(s)"
     End Sub
 
-    Protected Sub btndelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        connection = New SqlConnection(strStringConnection)
-
-        If txtProductid.Text.Equals("") Then
-            MsgBox("N° product is required.", MsgBoxStyle.Information, "Required!")
-            Exit Sub
-        Else
-            PRODUCT_ID = txtProductid.Text
-        End If
-
-        Try
-            connection.Open()
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Error Connection!")
-        End Try
-
-        Dim command As New SqlCommand("DELETE PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
-        Dim rows As Integer = command.ExecuteNonQuery()
-
-        If rows = 0 Then
-            MsgBox("It was not possible to delete, because the N° Product does not exist.", MsgBoxStyle.Information, "Not found.")
-            Exit Sub
-        End If
-
-        ListProduct()
-        Clear()
-
-        connection.Close()
-    End Sub
-
     Protected Sub btnUptade_Click(sender As Object, e As EventArgs) Handles btnUptade.Click
         connection = New SqlConnection(strStringConnection)
         VALIDATION = New ValidationTexts(txtProductid, txtName, txtSpecification, txtQuantity, txtColor, txtRegistrationDate, checkAvailable, checkUnavailable)
@@ -170,7 +140,118 @@ Public Class _Default
         connection.Close()
     End Sub
 
-    Protected Sub btnsearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+    'SEM USO
+    Protected Sub gridview_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gridView.SelectedIndexChanged
+        connection = New SqlConnection(strStringConnection)
+
+        Try
+            connection.Open()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Error!")
+        End Try
+
+        'If txtproductid.Text.Equals("") Then
+        'Else
+        'PRODUCT_ID = txtproductid.Text
+        'End If
+        PRODUCT_ID = gridView.SelectedValue
+
+        Dim command As New SqlCommand("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
+        Dim reader As SqlDataReader
+
+        reader = command.ExecuteReader()
+
+        If reader.HasRows Then
+
+            While reader.Read()
+                txtProductid.Text = reader("PRODUCT_ID").ToString()
+                txtName.Text = reader("NAME").ToString()
+                txtSpecification.Text = reader("SPECIFICATION").ToString()
+                txtQuantity.Text = reader("QUANTITY").ToString()
+                txtColor.Text = reader("COLOR").ToString()
+                txtRegistrationDate.Text = Left(reader("REGISTRATION_DATE").ToString, 10)
+
+                If (reader("STATUS").ToString.ToLower().Equals("available")) Then
+                    checkAvailable.Checked = True
+                    checkUnavailable.Checked = False
+                Else
+                    checkUnavailable.Checked = True
+                    checkAvailable.Checked = False
+                End If
+
+            End While
+        End If
+
+        reader.Close()
+        connection.Close()
+
+    End Sub
+
+    Protected Sub gridView_RowCommand(ByVal source As Object, ByVal e As GridViewCommandEventArgs) Handles gridView.RowCommand
+    End Sub
+
+    Protected Sub gridView_Delete(ByVal source As Object, e As GridViewDeleteEventArgs) Handles gridView.RowDeleting
+        connection = New SqlConnection(strStringConnection)
+
+        If txtProductid.Text.Equals("") Then
+            MsgBox("N° product is required.", MsgBoxStyle.Information, "Required!")
+            Exit Sub
+        Else
+            PRODUCT_ID = txtProductid.Text
+        End If
+
+        Try
+            connection.Open()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Information, "Error Connection!")
+        End Try
+
+        Dim command As New SqlCommand("DELETE PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
+        Dim rows As Integer = command.ExecuteNonQuery()
+
+        If rows = 0 Then
+            MsgBox("It was not possible to delete, because the N° Product does not exist.", MsgBoxStyle.Information, "Not found.")
+            Exit Sub
+        End If
+
+        ListProduct()
+        Clear()
+
+        connection.Close()
+    End Sub
+
+    Private Sub gridView_Sorting(ByVal source As Object, ByVal e As GridViewSortEventArgs) Handles gridView.Sorting
+        ViewState("OrderBy") = e.SortExpression
+        ListProduct(ViewState("OrderBy"))
+    End Sub
+
+    Protected Sub gridView_PageIndexChanging(ByVal source As Object, ByVal e As GridViewPageEventArgs) Handles gridView.PageIndexChanging
+        gridView.PageIndex = e.NewPageIndex
+        ListProduct()
+    End Sub
+
+    Protected Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
+        txtProductid.Text = ""
+        txtName.Text = ""
+        txtSpecification.Text = ""
+        txtColor.Text = ""
+        txtQuantity.Text = ""
+        txtRegistrationDate.Text = ""
+        checkAvailable.Checked = False
+        checkUnavailable.Checked = False
+    End Sub
+    Private Sub Clear()
+        txtProductid.Text = ""
+        txtName.Text = ""
+        txtSpecification.Text = ""
+        txtColor.Text = ""
+        txtQuantity.Text = ""
+        txtRegistrationDate.Text = ""
+        checkAvailable.Checked = False
+        checkUnavailable.Checked = False
+    End Sub
+
+    Protected Sub ibtnSearch_Click(sender As Object, e As ImageClickEventArgs) Handles ibtnSearch.Click
         connection = New SqlConnection(strStringConnection)
         Dim strSql As New StringBuilder
 
@@ -237,86 +318,4 @@ Public Class _Default
 
         connection.Close()
     End Sub
-
-    'SEM USO
-    Protected Sub gridview_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gridView.SelectedIndexChanged
-        connection = New SqlConnection(strStringConnection)
-
-        Try
-            connection.Open()
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Error!")
-        End Try
-
-        'If txtproductid.Text.Equals("") Then
-        'Else
-        'PRODUCT_ID = txtproductid.Text
-        'End If
-        PRODUCT_ID = gridView.SelectedValue
-
-        Dim command As New SqlCommand("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
-        Dim reader As SqlDataReader
-
-        reader = command.ExecuteReader()
-
-        If reader.HasRows Then
-
-            While reader.Read()
-                txtProductid.Text = reader("PRODUCT_ID").ToString()
-                txtName.Text = reader("NAME").ToString()
-                txtSpecification.Text = reader("SPECIFICATION").ToString()
-                txtQuantity.Text = reader("QUANTITY").ToString()
-                txtColor.Text = reader("COLOR").ToString()
-                txtRegistrationDate.Text = Left(reader("REGISTRATION_DATE").ToString, 10)
-
-                If (reader("STATUS").ToString.ToLower().Equals("available")) Then
-                    checkAvailable.Checked = True
-                    checkUnavailable.Checked = False
-                Else
-                    checkUnavailable.Checked = True
-                    checkAvailable.Checked = False
-                End If
-
-            End While
-        End If
-
-        reader.Close()
-        connection.Close()
-
-    End Sub
-
-    Protected Sub gridView_RowCommand(ByVal source As Object, ByVal e As GridViewCommandEventArgs) Handles gridView.RowCommand
-    End Sub
-
-    Private Sub gridView_Sorting(ByVal source As Object, ByVal e As GridViewSortEventArgs) Handles gridView.Sorting
-        ViewState("OrderBy") = e.SortExpression
-        ListProduct(ViewState("OrderBy"))
-    End Sub
-
-    Protected Sub gridView_PageIndexChanging(ByVal source As Object, ByVal e As GridViewPageEventArgs) Handles gridView.PageIndexChanging
-        gridView.PageIndex = e.NewPageIndex
-        ListProduct()
-    End Sub
-
-    Protected Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
-        txtProductid.Text = ""
-        txtName.Text = ""
-        txtSpecification.Text = ""
-        txtColor.Text = ""
-        txtQuantity.Text = ""
-        txtRegistrationDate.Text = ""
-        checkAvailable.Checked = False
-        checkUnavailable.Checked = False
-    End Sub
-    Private Sub Clear()
-        txtProductid.Text = ""
-        txtName.Text = ""
-        txtSpecification.Text = ""
-        txtColor.Text = ""
-        txtQuantity.Text = ""
-        txtRegistrationDate.Text = ""
-        checkAvailable.Checked = False
-        checkUnavailable.Checked = False
-    End Sub
-
 End Class

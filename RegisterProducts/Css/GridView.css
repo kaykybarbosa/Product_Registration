@@ -4,21 +4,15 @@
     box-sizing: border-box;
 }
 
-body{
-}
-
-.counter {
-    font-family: Verdana, Helvetica, sans-serif; 
-    font-size: 13px;
-    float: right;
-    font-weight: bold;
-    background-color: #78d0ed;
-    color: #2653e9;
+body {
+    background-color: #B0E0E6;
 }
 
 .title {
     font-size: xx-large;
     text-align: center;
+    color: #000080;
+    background-color: #B0E0E6
 }
 
 .required{
@@ -26,41 +20,41 @@ body{
     margin-left: 5px;
 }
 
+.divMain{
+    display: flex;
+}
+
 .divForm {
-    margin-left: 28%;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     margin-top: 2%;
- 
-
-
-    /*display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 2%;
-    margin-left: 28%;*/
+    margin-left: 0;
 }
 
 .fields{
-    margin-bottom: 0.2em;
-    
-    /*Chat*/
-/*    margin-right: 1em;
-    display: flex;
-    align-items: center*/;
-
+    width: calc(30% - 70px);
+    margin-bottom: 5px;
+    justify-self: center;
 }
 
-/*Chat*/
-.fields label{
+.lblLeft {
+    margin-left: 12.6%;
+}
+
+/*Take thead 2 checkboxes*/
+.fields label {
     font-weight: bold;
     font-size: medium;
     margin-right: 10px;
+    color: #4682B4
 }
 
-span{
+/*Take the label*/
+span {
     display: block;
     margin-bottom: 0.2em;
+    color: #191970;
 }
 
 .divForm, .fields{
@@ -68,30 +62,48 @@ span{
     margin-right: 1em;
 }
 
-.btnSearch {
-    float: right;
+.divBtnSearch {
+    margin-top: 35px;
+    margin-right: 20px;
     align-self: flex-start;
-    margin-left: 5%;
-    margin-top: 27px;
-    font-size: medium;
 }
 
-.textBox{
+.btnHover {
+    color: #191970;
+    border-color: #87CEEB;
+    background-color: #4682B4;
+    box-shadow: 2px 2px 2px #4682B4;
+    text-shadow: 1px 1px 1px #4682B4;
+}
+
+.btnHover:hover {
+    Background-color: #ADD8E6;
+    box-shadow: 2px 2px 2px #191970;
+    text-shadow: none;
+}
+
+.btnSearch {
+    font-size: medium;
+    border-radius: 50px;
+}
+
+.textBox {
     border-radius: 5px;
     padding: 2%;
-    display: block;
-    max-width: 500px;
+    max-width: 310px;
+    border-color: #191970
 }
 
-.textBox:focus{
-    background-color: #c2c2c2;
+.textBox:focus {
+    border-color: #191970;
+    background-color: #ADD8E6;
 }
 
 .checkBox{
     display: inline-block;
 }
 
-.left{
+.marginLeft{
     margin-left: 10px;
 }
 
@@ -104,3 +116,28 @@ span{
     font-size: medium;
 }
 
+.counter {
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 13px;
+    float: right;
+    font-weight: bold;
+    color: #B0E0E6;
+    background-color: #4682B4;
+}
+
+.gridView td{
+}
+
+.gridView tr:hover td {
+    background-color: #ADD8E6;
+}
+
+.tableHeader {
+    color: #1E90FF;
+    background-color: pink;
+}
+
+.ibtnDelete{
+    width: 20px;
+    height: 20px;
+}
