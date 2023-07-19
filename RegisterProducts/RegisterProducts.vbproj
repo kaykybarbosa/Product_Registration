@@ -150,6 +150,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\cadastro.png" />
     <Content Include="Images\excluir.png" />
     <Content Include="Images\lupa.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />

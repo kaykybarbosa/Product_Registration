@@ -5,18 +5,22 @@
 }
 
 body {
-    background-color: #B0E0E6;
+    background-color: #ffff;
 }
 
 .title {
-    font-size: xx-large;
-    text-align: center;
     color: #000080;
-    background-color: #B0E0E6
+    text-align: center;
+    font-size: xx-large;
+    background-color: #ffff;
+    text-shadow: 1px 1px 1px #1E90FF;
 }
 
-.required{
+/*HERE*/
+
+.required::after {
     color: red;
+    content: "*";
     margin-left: 5px;
 }
 
@@ -26,35 +30,35 @@ body {
 
 .divForm {
     display: flex;
+    margin-top: 2%;
+    margin-left: 2%;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 2%;
-    margin-left: 0;
 }
 
 .fields{
-    width: calc(30% - 70px);
     margin-bottom: 5px;
     justify-self: center;
+    width: calc(30% - 70px);
 }
 
 .lblLeft {
-    margin-left: 12.6%;
+    margin-left: 14.5%;
 }
 
 /*Take thead 2 checkboxes*/
 .fields label {
+    color: #4682B4;
     font-weight: bold;
     font-size: medium;
     margin-right: 10px;
-    color: #4682B4
 }
 
 /*Take the label*/
-span {
+.labelForm {
     display: block;
-    margin-bottom: 0.2em;
     color: #191970;
+    margin-bottom: 0.2em;
 }
 
 .divForm, .fields{
@@ -69,17 +73,20 @@ span {
 }
 
 .btnHover {
-    color: #191970;
-    border-color: #87CEEB;
-    background-color: #4682B4;
-    box-shadow: 2px 2px 2px #4682B4;
-    text-shadow: 1px 1px 1px #4682B4;
+    color: #ffff;
+    background-color: #148eb0;
+    box-shadow: 2px 2px 2px #191970;
 }
 
 .btnHover:hover {
-    Background-color: #ADD8E6;
-    box-shadow: 2px 2px 2px #191970;
-    text-shadow: none;
+    color: #ffff;
+    background-color: #87CEEB;
+}
+
+.btnHover:active {
+    color: #ffff;
+    background-color: #87CEEB;
+    box-shadow: 3px 3px 3px 3px #AEDFFB;
 }
 
 .btnSearch {
@@ -88,10 +95,11 @@ span {
 }
 
 .textBox {
-    border-radius: 5px;
     padding: 2%;
-    max-width: 310px;
-    border-color: #191970
+    max-width: 300px;
+    font-weight: bold;
+    border-radius: 5px;
+    border-color: #191970;
 }
 
 .textBox:focus {
@@ -103,29 +111,26 @@ span {
     display: inline-block;
 }
 
-.marginLeft{
-    margin-left: 10px;
-}
-
 .divBtns {
-    align-items: center;
     display: flex;
-    justify-content: space-around;
     margin-top: 4%;
-    margin-block-end: 3%;
     font-size: medium;
+    align-items: center;
+    margin-block-end: 3%;
+    justify-content: space-around;
 }
 
 .counter {
-    font-family: Verdana, Helvetica, sans-serif;
-    font-size: 13px;
     float: right;
+    color: #ffff;
+    font-size: 13px;
     font-weight: bold;
-    color: #B0E0E6;
-    background-color: #4682B4;
+    background-color: #148eb0;
+    font-family: Verdana, Helvetica, sans-serif;
 }
 
 .gridView td{
+    font-weight: bold;
 }
 
 .gridView tr:hover td {

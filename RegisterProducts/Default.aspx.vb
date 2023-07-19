@@ -8,22 +8,34 @@ Public Class _Default
 
     Private PRODUCT_ID As Integer
     Private NAME As String
-    Private SPECIFICATION As String
-    Private QUANTITY As Integer
     Private COLOR As String
+    Private QUANTITY As Integer
     Private REGISTRATION_DATE As DateTime
     Private STATUS As String
+    Private SPECIFICATION As String
 
     Private VALIDATION As ValidationTexts
     Private ReadOnly VALID As String = "VALID"
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        'If IsPostBack Then
+        '    Dim showAsterisk As Boolean = True
+
+        '    If showAsterisk Then
+        '        lblName.CssClass += " required"
+        '    Else
+        '        lblName.CssClass = lblName.CssClass.Replace("required", "").Trim
+        '    End If
+        'End If
+
+        'ShowLblRequired()
+
         ListProduct()
     End Sub
 
     Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
         connection = New SqlConnection(strStringConnection)
-        VALIDATION = New ValidationTexts(txtProductid, txtName, txtSpecification, txtQuantity, txtColor, txtRegistrationDate, checkAvailable, checkUnavailable)
+        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkAvailable, checkUnavailable, txtSpecification)
 
         Dim result = VALIDATION.Validate_Fields
         If result.Equals(VALID) Then
@@ -46,7 +58,8 @@ Public Class _Default
                 STATUS = "Unavailable"
             End If
         Else
-            MsgBox(result, MsgBoxStyle.Information, "Error!")
+            ShowLblRequired(result)
+
             Exit Sub
         End If
 
@@ -59,8 +72,9 @@ Public Class _Default
         Dim command As New SqlCommand("INSERT INTO PRODUCTS VALUES ('" & NAME & "', '" & SPECIFICATION & "', '" & QUANTITY & "', '" & COLOR & "', '" & REGISTRATION_DATE & "', '" & STATUS & "')", connection)
         command.ExecuteNonQuery()
 
-        ListProduct()
         Clear()
+        ListProduct()
+        ClearLblRequired()
 
         connection.Close()
 
@@ -99,7 +113,7 @@ Public Class _Default
 
     Protected Sub btnUptade_Click(sender As Object, e As EventArgs) Handles btnUptade.Click
         connection = New SqlConnection(strStringConnection)
-        VALIDATION = New ValidationTexts(txtProductid, txtName, txtSpecification, txtQuantity, txtColor, txtRegistrationDate, checkAvailable, checkUnavailable)
+        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkAvailable, checkUnavailable, txtSpecification)
 
         Dim result = VALIDATION.Validate_Fields(isUpdate:=True)
         If result.Equals(VALID) Then
@@ -127,15 +141,11 @@ Public Class _Default
         End Try
 
         Dim command As New SqlCommand("UPDATE PRODUCTS SET NAME = '" & NAME & "', SPECIFICATION = '" & SPECIFICATION & "', QUANTITY= '" & QUANTITY & "', COLOR= '" & COLOR & "',REGISTRATION_DATE= '" & REGISTRATION_DATE & "', STATUS='" & STATUS & "' WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
-        Dim rows As Integer = command.ExecuteNonQuery()
+        command.ExecuteNonQuery()
 
-        If rows = 0 Then
-            MsgBox("It was not possible to update, because the N° Product does not exist.", MsgBoxStyle.Information, "Not found.")
-            Exit Sub
-        End If
-
-        ListProduct()
         Clear()
+        ListProduct()
+        ClearLblRequired()
 
         connection.Close()
     End Sub
@@ -188,17 +198,19 @@ Public Class _Default
     End Sub
 
     Protected Sub gridView_RowCommand(ByVal source As Object, ByVal e As GridViewCommandEventArgs) Handles gridView.RowCommand
+
     End Sub
 
     Protected Sub gridView_Delete(ByVal source As Object, e As GridViewDeleteEventArgs) Handles gridView.RowDeleting
         connection = New SqlConnection(strStringConnection)
 
-        If txtProductid.Text.Equals("") Then
-            MsgBox("N° product is required.", MsgBoxStyle.Information, "Required!")
+        Dim result = MsgBox("Are you sure to delete?", MsgBoxStyle.YesNo, "DELETE")
+
+        If result.Equals(vbNo) Then
             Exit Sub
-        Else
-            PRODUCT_ID = txtProductid.Text
         End If
+
+        PRODUCT_ID = gridView.DataKeys(e.RowIndex)("PRODUCT_ID").ToString
 
         Try
             connection.Open()
@@ -214,8 +226,9 @@ Public Class _Default
             Exit Sub
         End If
 
-        ListProduct()
         Clear()
+        ListProduct()
+
 
         connection.Close()
     End Sub
@@ -233,22 +246,22 @@ Public Class _Default
     Protected Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
         txtProductid.Text = ""
         txtName.Text = ""
-        txtSpecification.Text = ""
-        txtColor.Text = ""
         txtQuantity.Text = ""
+        txtColor.Text = ""
         txtRegistrationDate.Text = ""
         checkAvailable.Checked = False
         checkUnavailable.Checked = False
+        txtSpecification.Text = ""
     End Sub
     Private Sub Clear()
         txtProductid.Text = ""
         txtName.Text = ""
-        txtSpecification.Text = ""
-        txtColor.Text = ""
         txtQuantity.Text = ""
+        txtColor.Text = ""
         txtRegistrationDate.Text = ""
         checkAvailable.Checked = False
         checkUnavailable.Checked = False
+        txtSpecification.Text = ""
     End Sub
 
     Protected Sub ibtnSearch_Click(sender As Object, e As ImageClickEventArgs) Handles ibtnSearch.Click
@@ -317,5 +330,57 @@ Public Class _Default
         End Try
 
         connection.Close()
+    End Sub
+
+    Public Sub ShowLblRequired(Optional lblExample As String = "")
+        Dim requiredClass As String = " required"
+
+        If lblExample.Equals(lblName.ID) Then
+            lblName.CssClass += requiredClass
+        Else
+            lblName.CssClass = lblName.CssClass.Replace(requiredClass, "").Trim
+        End If
+
+        If lblExample.Equals(lblQuantity.ID) Then
+            lblQuantity.CssClass += requiredClass
+        Else
+            lblQuantity.CssClass = lblQuantity.CssClass.Replace(requiredClass, "").Trim
+        End If
+
+        If lblExample.Equals(lblColor.ID) Then
+            lblColor.CssClass += requiredClass
+        Else
+            lblColor.CssClass = lblColor.CssClass.Replace(requiredClass, "").Trim
+        End If
+
+        If lblExample.Equals(lblRegistrationDate.ID) Then
+            lblRegistrationDate.CssClass += requiredClass
+        Else
+            lblRegistrationDate.CssClass = lblRegistrationDate.CssClass.Replace(requiredClass, "").Trim
+        End If
+
+        If lblExample.Equals(lblStatus.ID) Then
+            lblStatus.CssClass += requiredClass
+        Else
+            lblStatus.CssClass = lblStatus.CssClass.Replace(requiredClass, "").Trim
+        End If
+
+        If lblExample.Equals(lblSpecification.ID) Then
+            lblSpecification.CssClass += requiredClass
+        Else
+            lblSpecification.CssClass = lblSpecification.CssClass.Replace(requiredClass, "").Trim
+        End If
+    End Sub
+
+    Private Sub ClearLblRequired()
+        Dim requiredClass As String = "required"
+
+        lblProductId.CssClass = lblProductId.CssClass.Replace(requiredClass, "").Trim
+        lblName.CssClass = lblName.CssClass.Replace(requiredClass, "").Trim
+        lblQuantity.CssClass = lblQuantity.CssClass.Replace(requiredClass, "").Trim
+        lblColor.CssClass = lblColor.CssClass.Replace(requiredClass, "").Trim
+        lblRegistrationDate.CssClass = lblRegistrationDate.CssClass.Replace(requiredClass, "").Trim
+        lblStatus.CssClass = lblStatus.CssClass.Replace(requiredClass, "").Trim
+        lblSpecification.CssClass = lblSpecification.CssClass.Replace(requiredClass, "").Trim
     End Sub
 End Class

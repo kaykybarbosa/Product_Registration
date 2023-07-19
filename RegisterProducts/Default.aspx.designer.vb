@@ -14,13 +14,13 @@ Option Explicit On
 Partial Public Class _Default
 
     '''<summary>
-    '''Controle lblProductid.
+    '''Controle lblProductId.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents lblProductid As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblProductId As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Controle txtProductid.
@@ -174,15 +174,6 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents btnUptade As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''Controle btnDelete.
-    '''</summary>
-    '''<remarks>
-    '''Campo gerado automaticamente.
-    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-    '''</remarks>
-    Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Controle btnClear.
