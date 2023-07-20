@@ -1,11 +1,59 @@
 ﻿*{
     margin: 0;
+    border: none;
     padding: 0;
     box-sizing: border-box;
+  /*  font-family: sans-serif;*/
 }
 
-body {
-    background-color: #ffff;
+body{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffff;
+}
+
+.container body-content{
+
+}
+
+.form-container {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .212)
+}
+
+.form-image {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ADD8E6;
+    padding: 1rem;
+}
+
+.form-image img{
+    width: 32rem;
+}
+
+.form{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 1.9rem;
+    margin-top: 0;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between; 
+    margin-bottom: 3rem;
 }
 
 .title {
@@ -16,9 +64,116 @@ body {
     text-shadow: 1px 1px 1px #1E90FF;
 }
 
+.search-button{
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.search-button button{
+    border: none;
+    padding: 0.4rem 1rem;
+    background-color: red;
+}
+
+/*.title ::after h1{
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #148eb0;
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 10px;
+}*/
+
+.input-group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.fields{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+}
+
+.fields label{
+   margin-left: 5px;
+   margin-right: 5px;
+}
+
+.textBox {
+    border: none;
+    margin: 0.6rem 0;
+    padding: 0.4rem 1.2rem;
+    border-radius: 5px;
+    font-weight: bold;
+    /*border-color: #191970;*/ box-shadow: 1px 1px 6px #191970
+}
+
+.textBox:focus {
+    border-color: #191970;
+    background-color: #ADD8E6;
+}
+
+.labelForm {
+    color: #191970;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.checkBox{
+    display: inline-block;
+    justify-content: space-between;
+    background-color: rebeccapurple;
+}
+
+.buttons {
+    clear: both;
+    display: flex;
+    /*margin-top: 0.62rem;*/
+}
+
+.btnHover {
+    color:  #ffff;
+    background-color: #148eb0;
+    box-shadow: 2px 2px 2px #191970;
+    margin-left: 60px;
+}
+
+.btnHover:hover {
+    color: #ffff;
+    background-color: #87CEEB;
+}
+
+.btnHover:active {
+    color: #ffff;
+    background-color: #87CEEB;
+    box-shadow: 3px 3px 3px 3px #AEDFFB;
+}
+
+
+
+/*/*OLD*/
+/*body {
+    background-color: #ffff;
+}
+
+.title {
+    color: #000080;
+    text-align: center;
+    font-size: xx-large;
+    background-color: #ffff;
+    text-shadow: 1px 1px 1px #1E90FF;
+}*/
+
 /*HERE*/
 
-.required::after {
+/*.required::after {
     color: red;
     content: "*";
     margin-left: 5px;
@@ -28,7 +183,7 @@ body {
     display: flex;
 }
 
-.divForm {
+.input-group {
     display: flex;
     margin-top: 2%;
     margin-left: 2%;
@@ -44,18 +199,18 @@ body {
 
 .lblLeft {
     margin-left: 14.5%;
-}
+}*/
 
 /*Take thead 2 checkboxes*/
-.fields label {
+/*.fields label {
     color: #4682B4;
     font-weight: bold;
     font-size: medium;
     margin-right: 10px;
-}
+}*/
 
 /*Take the label*/
-.labelForm {
+/*.labelForm {
     display: block;
     color: #191970;
     margin-bottom: 0.2em;
@@ -144,5 +299,4 @@ body {
 
 .ibtnDelete{
     width: 20px;
-    height: 20px;
-}
+    height: 20px;*/
