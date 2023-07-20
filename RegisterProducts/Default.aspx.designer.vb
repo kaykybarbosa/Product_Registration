@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class _Default
 
     '''<summary>
+    '''Controle imgInformation.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents imgInformation As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''Controle ibtnSearch.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents ibtnSearch As Global.System.Web.UI.WebControls.ImageButton
+
+    '''<summary>
     '''Controle lblProductId.
     '''</summary>
     '''<remarks>
@@ -113,31 +131,13 @@ Partial Public Class _Default
     Protected WithEvents lblStatus As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Controle checkAvailable.
+    '''Controle checkStatus.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents checkAvailable As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''Controle checkUnavailable.
-    '''</summary>
-    '''<remarks>
-    '''Campo gerado automaticamente.
-    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-    '''</remarks>
-    Protected WithEvents checkUnavailable As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''Controle ibtnSearch.
-    '''</summary>
-    '''<remarks>
-    '''Campo gerado automaticamente.
-    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-    '''</remarks>
-    Protected WithEvents ibtnSearch As Global.System.Web.UI.WebControls.ImageButton
+    Protected WithEvents checkStatus As Global.System.Web.UI.WebControls.CheckBoxList
 
     '''<summary>
     '''Controle lblSpecification.
@@ -167,13 +167,13 @@ Partial Public Class _Default
     Protected WithEvents btnSave As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Controle btnUptade.
+    '''Controle btnUpdate.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents btnUptade As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnUpdate As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Controle btnClear.
@@ -183,6 +183,24 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents btnClear As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Controle checkAvailable.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents checkAvailable As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''Controle checkUnavailable.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents checkUnavailable As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''Controle gridView.
@@ -203,11 +221,11 @@ Partial Public Class _Default
     Protected WithEvents SqlDataSource1 As Global.System.Web.UI.WebControls.SqlDataSource
 
     '''<summary>
-    '''Controle lblProducts.
+    '''Controle lblCounter.
     '''</summary>
     '''<remarks>
     '''Campo gerado automaticamente.
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
-    Protected WithEvents lblProducts As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblCounter As Global.System.Web.UI.WebControls.Label
 End Class

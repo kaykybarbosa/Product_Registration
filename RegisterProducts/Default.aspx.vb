@@ -3,7 +3,7 @@
 Public Class _Default
     Inherits Page
 
-    Private strStringConnection As String = ConfigurationManager.ConnectionStrings("PRODUCT_REGISTERConnectionString").ToString
+    Private strStringConnection As String = ConfigurationManager.ConnectionStrings("StringConectionRegisterProduct").ToString
     Private connection As New SqlConnection(strStringConnection)
 
     Private PRODUCT_ID As Integer
@@ -101,28 +101,26 @@ Public Class _Default
         gridView.DataSource = dt
         gridView.DataBind()
 
-        connection.Close()
-
         lblProducts_Quantity()
-
+        connection.Close()
     End Sub
 
     Protected Sub lblProducts_Quantity()
-        lblProducts.Text = DirectCast(gridView.DataSource, DataTable).Rows.Count & " product(s)"
+        lblCounter.Text = DirectCast(gridView.DataSource, DataTable).Rows.Count & " product(s)"
     End Sub
 
-    Protected Sub btnUptade_Click(sender As Object, e As EventArgs) Handles btnUptade.Click
+    Protected Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         connection = New SqlConnection(strStringConnection)
         VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkAvailable, checkUnavailable, txtSpecification)
+        Dim strSql As New StringBuilder
 
         Dim result = VALIDATION.Validate_Fields(isUpdate:=True)
         If result.Equals(VALID) Then
             PRODUCT_ID = txtProductid.Text
             NAME = txtName.Text
-            SPECIFICATION = txtSpecification.Text
             QUANTITY = txtQuantity.Text
             COLOR = txtColor.Text
-            REGISTRATION_DATE = txtRegistrationDate.Text
+            SPECIFICATION = txtSpecification.Text
 
             If checkAvailable.Checked Then
                 STATUS = "Available"
@@ -130,7 +128,7 @@ Public Class _Default
                 STATUS = "Unavailable"
             End If
         Else
-            MsgBox(result, MsgBoxStyle.Information, "Error!")
+            ShowLblRequired(result, isUpdate:=True)
             Exit Sub
         End If
 
@@ -140,7 +138,15 @@ Public Class _Default
             MsgBox(ex.Message, MsgBoxStyle.Information, "Error Connection!")
         End Try
 
-        Dim command As New SqlCommand("UPDATE PRODUCTS SET NAME = '" & NAME & "', SPECIFICATION = '" & SPECIFICATION & "', QUANTITY= '" & QUANTITY & "', COLOR= '" & COLOR & "',REGISTRATION_DATE= '" & REGISTRATION_DATE & "', STATUS='" & STATUS & "' WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
+        strSql.Append("UPDATE PRODUCTS SET")
+        strSql.Append(" NAME = '" & NAME & "'")
+        strSql.Append(" , QUANTITY = '" & QUANTITY & "'")
+        strSql.Append(" , COLOR = '" & COLOR & "'")
+        strSql.Append(" , SPECIFICATION = '" & SPECIFICATION & "'")
+        strSql.Append(" , STATUS = '" & STATUS & "'")
+        strSql.Append(" WHERE PRODUCT_ID = '" & PRODUCT_ID & "'")
+
+        Dim command As New SqlCommand(strSql.ToString, connection)
         command.ExecuteNonQuery()
 
         Clear()
@@ -150,7 +156,6 @@ Public Class _Default
         connection.Close()
     End Sub
 
-    'SEM USO
     Protected Sub gridview_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gridView.SelectedIndexChanged
         connection = New SqlConnection(strStringConnection)
 
@@ -160,10 +165,6 @@ Public Class _Default
             MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Error!")
         End Try
 
-        'If txtproductid.Text.Equals("") Then
-        'Else
-        'PRODUCT_ID = txtproductid.Text
-        'End If
         PRODUCT_ID = gridView.SelectedValue
 
         Dim command As New SqlCommand("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
@@ -176,12 +177,11 @@ Public Class _Default
             While reader.Read()
                 txtProductid.Text = reader("PRODUCT_ID").ToString()
                 txtName.Text = reader("NAME").ToString()
-                txtSpecification.Text = reader("SPECIFICATION").ToString()
                 txtQuantity.Text = reader("QUANTITY").ToString()
                 txtColor.Text = reader("COLOR").ToString()
-                txtRegistrationDate.Text = Left(reader("REGISTRATION_DATE").ToString, 10)
+                txtSpecification.Text = reader("SPECIFICATION").ToString()
 
-                If (reader("STATUS").ToString.ToLower().Equals("available")) Then
+                If reader("STATUS").ToString.Equals(checkAvailable.Text) Then
                     checkAvailable.Checked = True
                     checkUnavailable.Checked = False
                 Else
@@ -210,7 +210,7 @@ Public Class _Default
             Exit Sub
         End If
 
-        PRODUCT_ID = gridView.DataKeys(e.RowIndex)("PRODUCT_ID").ToString
+        PRODUCT_ID = gridView.DataKeys(e.RowIndex)("DELETE").ToString
 
         Try
             connection.Open()
@@ -221,24 +221,22 @@ Public Class _Default
         Dim command As New SqlCommand("DELETE PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
         Dim rows As Integer = command.ExecuteNonQuery()
 
-        If rows = 0 Then
+        If rows <= 0 Then
             MsgBox("It was not possible to delete, because the N° Product does not exist.", MsgBoxStyle.Information, "Not found.")
             Exit Sub
         End If
 
         Clear()
         ListProduct()
-
-
         connection.Close()
     End Sub
 
-    Private Sub gridView_Sorting(ByVal source As Object, ByVal e As GridViewSortEventArgs) Handles gridView.Sorting
+    Protected Sub gridView_Sorting(ByVal source As Object, ByVal e As GridViewSortEventArgs) Handles gridView.Sorting
         ViewState("OrderBy") = e.SortExpression
         ListProduct(ViewState("OrderBy"))
     End Sub
 
-    Protected Sub gridView_PageIndexChanging(ByVal source As Object, ByVal e As GridViewPageEventArgs) Handles gridView.PageIndexChanging
+    Protected Sub gridView_PageIndexChanging(ByVal source As Object, e As GridViewPageEventArgs) Handles gridView.PageIndexChanging
         gridView.PageIndex = e.NewPageIndex
         ListProduct()
     End Sub
@@ -268,21 +266,16 @@ Public Class _Default
         connection = New SqlConnection(strStringConnection)
         Dim strSql As New StringBuilder
 
-        strSql.Append("SELECT * FROM PRODUCTS WHERE")
+        strSql.Append("SELECT * FROM PRODUCTS WHERE NAME IS NOT NULL")
 
         If Not txtProductid.Text.Equals("") Then
             PRODUCT_ID = txtProductid.Text
-            strSql.Append(" PRODUCT_ID = '" & PRODUCT_ID & "'")
+            strSql.Append(" AND PRODUCT_ID = '" & PRODUCT_ID & "'")
         End If
 
         If Not txtName.Text.Equals("") Then
             NAME = txtName.Text
-            strSql.Append(" NAME LIKE '%" & NAME & "%'")
-        End If
-
-        If Not txtSpecification.Text.Equals("") Then
-            SPECIFICATION = txtSpecification.Text
-            strSql.Append(" AND SPECIFICATION LIKE '%" & SPECIFICATION & "%'")
+            strSql.Append(" AND NAME LIKE '%" & NAME & "%'")
         End If
 
         If Not txtQuantity.Text.Equals("") Then
@@ -292,15 +285,22 @@ Public Class _Default
 
         If Not txtColor.Text.Equals("") Then
             COLOR = txtColor.Text
-            strSql.Append(" AND COLOR LIKE '%" & QUANTITY & "%'")
+            strSql.Append(" AND COLOR LIKE '%" & COLOR & "%'")
         End If
 
         If checkAvailable.Checked Then
-            strSql.Append(" AND STATUS = 'AVAILABLE'")
+            Dim status As String = checkAvailable.Text
+            strSql.Append(" AND STATUS = '" & status & "'")
         End If
 
         If checkUnavailable.Checked Then
-            strSql.Append(" AND STATUS = 'UNAVAILABLE'")
+            Dim status As String = checkUnavailable.Text
+            strSql.Append(" AND STATUS = '" & status & "'")
+        End If
+
+        If Not txtSpecification.Text.Equals("") Then
+            SPECIFICATION = txtSpecification.Text
+            strSql.Append(" AND SPECIFICATION LIKE '%" & SPECIFICATION & "%'")
         End If
 
         Try
@@ -309,31 +309,30 @@ Public Class _Default
             MsgBox(ex.Message, MsgBoxStyle.Information, "Error Connection!")
         End Try
 
-        Try
-            Dim command As New SqlCommand(strSql.ToString, connection)
-            Dim rows As Integer = command.ExecuteNonQuery()
+        Dim command As New SqlCommand(strSql.ToString, connection)
+        Dim rows As Integer = command.ExecuteNonQuery()
 
-            If rows = 0 Then
-                Exit Sub
-            End If
+        Dim sd As New SqlDataAdapter(command)
+        Dim dt As New DataTable
 
-            Dim sd As New SqlDataAdapter(command)
-            Dim dt As New DataTable
+        sd.Fill(dt)
 
-            sd.Fill(dt)
-
-            gridView.DataSource = dt
-            gridView.DataBind()
-        Catch ex As Exception
-            ListProduct()
-            'MsgBox("Select some filter.", MsgBoxStyle.Information, "Values empty.")
-        End Try
+        gridView.DataSource = dt
+        gridView.DataBind()
 
         connection.Close()
     End Sub
 
-    Public Sub ShowLblRequired(Optional lblExample As String = "")
+    Private Sub ShowLblRequired(Optional lblExample As String = "", Optional isUpdate As Boolean = False)
         Dim requiredClass As String = " required"
+
+        If isUpdate Then
+            If lblExample.Equals(lblProductId.ID) Then
+                lblProductId.CssClass += requiredClass
+            Else
+                lblProductId.CssClass = lblProductId.CssClass.Replace(requiredClass, "").Trim
+            End If
+        End If
 
         If lblExample.Equals(lblName.ID) Then
             lblName.CssClass += requiredClass

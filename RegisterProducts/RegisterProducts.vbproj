@@ -150,9 +150,11 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Avg\undraw_add_information_j2wg.svg" />
     <Content Include="Images\cadastro.png" />
     <Content Include="Images\excluir.png" />
     <Content Include="Images\lupa.png" />
+    <Content Include="Images\selecione.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

@@ -31,11 +31,16 @@
         ElseIf QUANTITY.Text < 0 Then
             Return "lblQuantity"
 
-        ElseIf Left(REGISTRATION_DATE.Text, 4) < 1900 Then
-            Return "lblRegistrationDate"
-
         ElseIf CHECK_AVAILABLE.Checked And CHECK_UNAVAILABLE.Checked Then
             Return "lblStatus"
+
+        ElseIf Not isUpdate Then
+
+            If Left(REGISTRATION_DATE.Text, 4) < 1900 Then
+                Return "lblRegistrationDate"
+            Else
+                Return "VALID"
+            End If
 
         Else
             Return "VALID"
@@ -59,7 +64,7 @@
         ElseIf String.IsNullOrEmpty(COLOR.Text) Then
             Return "lblColor"
 
-        ElseIf String.IsNullOrEmpty(REGISTRATION_DATE.Text) Then
+        ElseIf String.IsNullOrEmpty(REGISTRATION_DATE.Text) And Not isUpdate Then
             Return "lblRegistrationDate"
 
         ElseIf Not CHECK_AVAILABLE.Checked And Not CHECK_UNAVAILABLE.Checked Then
