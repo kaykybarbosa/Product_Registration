@@ -4,48 +4,49 @@
     Private QUANTITY As TextBox
     Private COLOR As TextBox
     Private REGISTRATION_DATE As TextBox
-    Private CHECK_AVAILABLE As CheckBox
-    Private CHECK_UNAVAILABLE As CheckBox
+    Private CHECK_LIST_STATUS As CheckBoxList
     Private SPECIFICATION As TextBox
 
     Public Sub ValidationTexts()
 
     End Sub
     Public Sub New(ByVal txtProductId As TextBox, ByVal txtName As TextBox, ByVal txtQuantity As TextBox, ByVal txtColor As TextBox,
-                   ByVal txtRegistrationDate As TextBox, ByVal checkAvailable As CheckBox, ByVal checkUnavailable As CheckBox, ByVal txtSpecification As TextBox)
+                   ByVal txtRegistrationDate As TextBox, ByVal txtsStatus As CheckBoxList, ByVal txtSpecification As TextBox)
         Me.PRODUCT_ID = txtProductId
         Me.NAME = txtName
         Me.QUANTITY = txtQuantity
         Me.COLOR = txtColor
         Me.REGISTRATION_DATE = txtRegistrationDate
-        Me.CHECK_AVAILABLE = checkAvailable
-        Me.CHECK_UNAVAILABLE = checkUnavailable
+        Me.CHECK_LIST_STATUS = txtsStatus
         Me.SPECIFICATION = txtSpecification
     End Sub
     Public Function Validate_Fields(Optional isUpdate As Boolean = False)
+        Dim result As String
         Dim resultEmpty = Validate_Empty(isUpdate)
 
         If Not resultEmpty.Equals("VALID") Then
             Return resultEmpty
 
         ElseIf QUANTITY.Text < 0 Then
-            Return "lblQuantity"
+            result = "lblQuantity"
 
-        ElseIf CHECK_AVAILABLE.Checked And CHECK_UNAVAILABLE.Checked Then
-            Return "lblStatus"
+        ElseIf CHECK_LIST_STATUS.Items(0).Selected And CHECK_LIST_STATUS.Items(1).Selected Then
+            result = "lblStatus"
 
         ElseIf Not isUpdate Then
 
             If Left(REGISTRATION_DATE.Text, 4) < 1900 Then
-                Return "lblRegistrationDate"
+                result = "lblRegistrationDate"
             Else
-                Return "VALID"
+                result = "VALID"
             End If
 
         Else
-            Return "VALID"
-
+            result = "VALID"
         End If
+
+        Return result
+
     End Function
 
     Public Function Validate_Empty(ByVal isUpdate As Boolean)
@@ -67,7 +68,7 @@
         ElseIf String.IsNullOrEmpty(REGISTRATION_DATE.Text) And Not isUpdate Then
             Return "lblRegistrationDate"
 
-        ElseIf Not CHECK_AVAILABLE.Checked And Not CHECK_UNAVAILABLE.Checked Then
+        ElseIf Not CHECK_LIST_STATUS.Items(0).Selected And Not CHECK_LIST_STATUS.Items(1).Selected Then
             Return "lblStatus"
 
         ElseIf String.IsNullOrEmpty(SPECIFICATION.Text) Then

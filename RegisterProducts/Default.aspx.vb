@@ -35,7 +35,7 @@ Public Class _Default
 
     Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
         connection = New SqlConnection(strStringConnection)
-        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkAvailable, checkUnavailable, txtSpecification)
+        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkStatus, txtSpecification)
 
         Dim result = VALIDATION.Validate_Fields
         If result.Equals(VALID) Then
@@ -52,7 +52,7 @@ Public Class _Default
                 STATUS = "Unavailable"
             End If
 
-            If checkAvailable.Checked Then
+            If checkStatus.Items(0).Selected Then
                 STATUS = "Available"
             Else
                 STATUS = "Unavailable"
@@ -111,7 +111,7 @@ Public Class _Default
 
     Protected Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         connection = New SqlConnection(strStringConnection)
-        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkAvailable, checkUnavailable, txtSpecification)
+        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkStatus, txtSpecification)
         Dim strSql As New StringBuilder
 
         Dim result = VALIDATION.Validate_Fields(isUpdate:=True)
@@ -122,7 +122,7 @@ Public Class _Default
             COLOR = txtColor.Text
             SPECIFICATION = txtSpecification.Text
 
-            If checkAvailable.Checked Then
+            If checkStatus.Items(0).Selected Then
                 STATUS = "Available"
             Else
                 STATUS = "Unavailable"
@@ -181,12 +181,12 @@ Public Class _Default
                 txtColor.Text = reader("COLOR").ToString()
                 txtSpecification.Text = reader("SPECIFICATION").ToString()
 
-                If reader("STATUS").ToString.Equals(checkAvailable.Text) Then
-                    checkAvailable.Checked = True
-                    checkUnavailable.Checked = False
+                If reader("STATUS").ToString.Equals(checkStatus.Items(0).Text) Then
+                    checkStatus.Items(0).Selected = True
+                    checkStatus.Items(1).Selected = False
                 Else
-                    checkUnavailable.Checked = True
-                    checkAvailable.Checked = False
+                    checkStatus.Items(1).Selected = True
+                    checkStatus.Items(0).Selected = False
                 End If
 
             End While
@@ -247,8 +247,8 @@ Public Class _Default
         txtQuantity.Text = ""
         txtColor.Text = ""
         txtRegistrationDate.Text = ""
-        checkAvailable.Checked = False
-        checkUnavailable.Checked = False
+        checkStatus.Items(0).Selected = False
+        checkStatus.Items(1).Selected = False
         txtSpecification.Text = ""
     End Sub
     Private Sub Clear()
@@ -257,8 +257,8 @@ Public Class _Default
         txtQuantity.Text = ""
         txtColor.Text = ""
         txtRegistrationDate.Text = ""
-        checkAvailable.Checked = False
-        checkUnavailable.Checked = False
+        checkStatus.Items(0).Selected = False
+        checkStatus.Items(1).Selected = False
         txtSpecification.Text = ""
     End Sub
 
@@ -288,13 +288,13 @@ Public Class _Default
             strSql.Append(" AND COLOR LIKE '%" & COLOR & "%'")
         End If
 
-        If checkAvailable.Checked Then
-            Dim status As String = checkAvailable.Text
+        If checkStatus.Items(0).Selected Then
+            Dim status As String = checkStatus.Items(0).Text
             strSql.Append(" AND STATUS = '" & status & "'")
         End If
 
-        If checkUnavailable.Checked Then
-            Dim status As String = checkUnavailable.Text
+        If checkStatus.Items(1).Selected Then
+            Dim status As String = checkStatus.Items(1).Text
             strSql.Append(" AND STATUS = '" & status & "'")
         End If
 
@@ -329,6 +329,8 @@ Public Class _Default
         If isUpdate Then
             If lblExample.Equals(lblProductId.ID) Then
                 lblProductId.CssClass += requiredClass
+
+                Exit Sub
             Else
                 lblProductId.CssClass = lblProductId.CssClass.Replace(requiredClass, "").Trim
             End If
@@ -336,36 +338,48 @@ Public Class _Default
 
         If lblExample.Equals(lblName.ID) Then
             lblName.CssClass += requiredClass
+
+            Exit Sub
         Else
             lblName.CssClass = lblName.CssClass.Replace(requiredClass, "").Trim
         End If
 
         If lblExample.Equals(lblQuantity.ID) Then
             lblQuantity.CssClass += requiredClass
+
+            Exit Sub
         Else
             lblQuantity.CssClass = lblQuantity.CssClass.Replace(requiredClass, "").Trim
         End If
 
         If lblExample.Equals(lblColor.ID) Then
             lblColor.CssClass += requiredClass
+
+            Exit Sub
         Else
             lblColor.CssClass = lblColor.CssClass.Replace(requiredClass, "").Trim
         End If
 
         If lblExample.Equals(lblRegistrationDate.ID) Then
             lblRegistrationDate.CssClass += requiredClass
+
+            Exit Sub
         Else
             lblRegistrationDate.CssClass = lblRegistrationDate.CssClass.Replace(requiredClass, "").Trim
         End If
 
         If lblExample.Equals(lblStatus.ID) Then
             lblStatus.CssClass += requiredClass
+
+            Exit Sub
         Else
             lblStatus.CssClass = lblStatus.CssClass.Replace(requiredClass, "").Trim
         End If
 
         If lblExample.Equals(lblSpecification.ID) Then
             lblSpecification.CssClass += requiredClass
+
+            Exit Sub
         Else
             lblSpecification.CssClass = lblSpecification.CssClass.Replace(requiredClass, "").Trim
         End If
