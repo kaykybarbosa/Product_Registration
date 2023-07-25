@@ -18,24 +18,13 @@ Public Class _Default
     Private ReadOnly VALID As String = "VALID"
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'If IsPostBack Then
-        '    Dim showAsterisk As Boolean = True
-
-        '    If showAsterisk Then
-        '        lblName.CssClass += " required"
-        '    Else
-        '        lblName.CssClass = lblName.CssClass.Replace("required", "").Trim
-        '    End If
-        'End If
-
-        'ShowLblRequired()
-
         ListProduct()
     End Sub
 
     Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
         connection = New SqlConnection(strStringConnection)
         VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkStatus, txtSpecification)
+        Dim strSql As New StringBuilder
 
         Dim result = VALIDATION.Validate_Fields
         If result.Equals(VALID) Then
@@ -44,13 +33,6 @@ Public Class _Default
             QUANTITY = txtQuantity.Text
             COLOR = txtColor.Text
             REGISTRATION_DATE = txtRegistrationDate.Text
-
-            'SEE ROLES
-            If QUANTITY > 0 Then
-                STATUS = "Available"
-            Else
-                STATUS = "Unavailable"
-            End If
 
             If checkStatus.Items(0).Selected Then
                 STATUS = "Available"
@@ -69,7 +51,15 @@ Public Class _Default
             MsgBox(ex.Message, MsgBoxStyle.Information, "Error Connection!")
         End Try
 
-        Dim command As New SqlCommand("INSERT INTO PRODUCTS VALUES ('" & NAME & "', '" & SPECIFICATION & "', '" & QUANTITY & "', '" & COLOR & "', '" & REGISTRATION_DATE & "', '" & STATUS & "')", connection)
+        strSql.Append("INSERT INTO PRODUCTS VALUES (")
+        strSql.Append(" '" & NAME & "' , ")
+        strSql.Append(" '" & SPECIFICATION & "' , ")
+        strSql.Append(" '" & QUANTITY & "' , ")
+        strSql.Append(" '" & COLOR & "' , ")
+        strSql.Append(" '" & REGISTRATION_DATE & "' , ")
+        strSql.Append(" '" & STATUS & "' )")
+
+        Dim command As New SqlCommand(strSql.ToString, connection)
         command.ExecuteNonQuery()
 
         Clear()
@@ -106,7 +96,14 @@ Public Class _Default
     End Sub
 
     Protected Sub lblProducts_Quantity()
-        lblCounter.Text = DirectCast(gridView.DataSource, DataTable).Rows.Count & " product(s)"
+        Dim counterProducts = DirectCast(gridView.DataSource, DataTable).Rows.Count
+
+        If counterProducts <= 0 Then
+            lblCounter.Visible = False
+        Else
+            lblCounter.Visible = True
+            lblCounter.Text = counterProducts & " product(s)"
+        End If
     End Sub
 
     Protected Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
@@ -129,6 +126,7 @@ Public Class _Default
             End If
         Else
             ShowLblRequired(result, isUpdate:=True)
+
             Exit Sub
         End If
 
@@ -147,7 +145,11 @@ Public Class _Default
         strSql.Append(" WHERE PRODUCT_ID = '" & PRODUCT_ID & "'")
 
         Dim command As New SqlCommand(strSql.ToString, connection)
-        command.ExecuteNonQuery()
+        Dim row As Integer = command.ExecuteNonQuery()
+
+        If row <= 0 Then
+            MsgBox("Product not updated!", MsgBoxStyle.Information)
+        End If
 
         Clear()
         ListProduct()
@@ -210,7 +212,7 @@ Public Class _Default
             Exit Sub
         End If
 
-        PRODUCT_ID = gridView.DataKeys(e.RowIndex)("DELETE").ToString
+        PRODUCT_ID = gridView.DataKeys(e.RowIndex)("PRODUCT_ID").ToString
 
         Try
             connection.Open()
@@ -219,12 +221,7 @@ Public Class _Default
         End Try
 
         Dim command As New SqlCommand("DELETE PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
-        Dim rows As Integer = command.ExecuteNonQuery()
-
-        If rows <= 0 Then
-            MsgBox("It was not possible to delete, because the N° Product does not exist.", MsgBoxStyle.Information, "Not found.")
-            Exit Sub
-        End If
+        command.ExecuteNonQuery()
 
         Clear()
         ListProduct()
@@ -250,6 +247,8 @@ Public Class _Default
         checkStatus.Items(0).Selected = False
         checkStatus.Items(1).Selected = False
         txtSpecification.Text = ""
+
+        ClearMensageRules()
     End Sub
     Private Sub Clear()
         txtProductid.Text = ""
@@ -310,7 +309,7 @@ Public Class _Default
         End Try
 
         Dim command As New SqlCommand(strSql.ToString, connection)
-        Dim rows As Integer = command.ExecuteNonQuery()
+        command.ExecuteNonQuery()
 
         Dim sd As New SqlDataAdapter(command)
         Dim dt As New DataTable
@@ -383,6 +382,9 @@ Public Class _Default
         Else
             lblSpecification.CssClass = lblSpecification.CssClass.Replace(requiredClass, "").Trim
         End If
+
+        ShowMensageRules(lblExample)
+
     End Sub
 
     Private Sub ClearLblRequired()
@@ -395,5 +397,33 @@ Public Class _Default
         lblRegistrationDate.CssClass = lblRegistrationDate.CssClass.Replace(requiredClass, "").Trim
         lblStatus.CssClass = lblStatus.CssClass.Replace(requiredClass, "").Trim
         lblSpecification.CssClass = lblSpecification.CssClass.Replace(requiredClass, "").Trim
+    End Sub
+
+    Protected Sub ShowMensageRules(ByVal addRules As String)
+
+        If addRules.Equals(lblRulesName.ID) Then
+            lblRulesName.Visible = True
+        Else
+            lblRulesName.Visible = False
+        End If
+
+        If addRules.Equals(lblRulesColor.ID) Then
+            lblRulesColor.Visible = True
+        Else
+            lblRulesColor.Visible = False
+        End If
+
+        If addRules.Equals(lblRulesSpecification.ID) Then
+            lblRulesSpecification.Visible = True
+        Else
+            lblRulesSpecification.Visible = False
+        End If
+
+    End Sub
+
+    Protected Sub ClearMensageRules()
+        lblRulesName.Visible = False
+        lblRulesColor.Visible = False
+        lblRulesSpecification.Visible = False
     End Sub
 End Class

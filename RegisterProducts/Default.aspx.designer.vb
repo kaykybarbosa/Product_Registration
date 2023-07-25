@@ -68,6 +68,15 @@ Partial Public Class _Default
     Protected WithEvents txtName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Controle lblRulesName.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents lblRulesName As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Controle lblQuantity.
     '''</summary>
     '''<remarks>
@@ -104,6 +113,15 @@ Partial Public Class _Default
     Protected WithEvents txtColor As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Controle lblRulesColor.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents lblRulesColor As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Controle lblRegistrationDate.
     '''</summary>
     '''<remarks>
@@ -120,6 +138,15 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents txtRegistrationDate As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Controle lblRulesRegistrationDate.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents lblRulesRegistrationDate As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Controle lblStatus.
@@ -156,6 +183,15 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents txtSpecification As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Controle lblRulesSpecification.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents lblRulesSpecification As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Controle btnSave.

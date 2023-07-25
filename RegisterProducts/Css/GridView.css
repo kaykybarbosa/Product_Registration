@@ -3,7 +3,6 @@
     border: none;
     padding: 0;
     box-sizing: border-box;
-    
 }
 
 body{
@@ -20,7 +19,7 @@ body{
     height: 75vh;
     display: flex;
     margin-top: 2rem;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, .212)
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212)
 }
 
 .form-image {
@@ -50,13 +49,12 @@ body{
 
 .form-header {
     display: flex;
-    justify-content: space-between; 
+    gap: 30px;
     margin-bottom: 3rem;
 }
 
 .title {
     color: #000080;
-    text-align: center;
     font-size: xx-large;
     background-color: #ffff;
     text-shadow: 1px 1px 1px #1E90FF;
@@ -92,6 +90,7 @@ body{
     margin-bottom: 1.1rem;
 }
 
+/*the two check*/
 .fields label{
     margin-left: 5px;
     margin-right: 5px;
@@ -99,12 +98,13 @@ body{
 
 .fields textarea{
     width: 252px;
+    max-width: 400px;
+    max-height: 160px;
 }
 
 .textBox {
     border: none;
     min-height: 40px;
-    max-height: 300px;
     margin: 0.6rem 0;
     padding: 0.4rem 1.2rem;
     border-radius: 5px;
@@ -127,19 +127,25 @@ body{
     width: 251.38px;
 }
 
+.rule-message {
+    display: inline-block;
+    flex-wrap: wrap;
+    max-width: 252px;
+    color: red;
+}
+
 .buttons {
     display: flex;
-    justify-content: space-around;
+    gap: 60px;
     align-items: center;
-    margin-top: 2rem;
+    bottom: 40px;
+    position: sticky;
 }
 
 .btnHover {
     color:  #ffff;
     background-color: #148eb0;
     box-shadow: 2px 2px 2px #191970;
-    margin-left: 50px;
-    margin-right: 50px;
 }
 
 .btnHover:hover {
@@ -174,9 +180,9 @@ body{
 .counter {
     float: right;
     color: #ffff;
+    background-color: #148eb0;
     font-size: 13px;
     font-weight: bold;
-    background-color: #148eb0;
     font-family: Verdana, Helvetica, sans-serif;
 }
 
@@ -263,9 +269,7 @@ body{
     }
 
     .buttons {
-        margin-left: 20px;
-        margin-right: 20px;
-        margin-top: 7rem;
+        gap: 30px;
     }
 
     .gridProducts{
@@ -296,6 +300,11 @@ body{
         max-height: 15rem;
     }
 
+    .buttons{
+        margin-top: 50px; 
+        gap: 30px;
+    }
+
     .gridProducts {
         display: none;
     }
@@ -303,9 +312,8 @@ body{
 
 @media screen and (max-width: 630px){
     .buttons{
-        margin-left: 10px;
-        margin-right: 10px;
         align-items: center;
+        gap: 20px;
     }
 
 }

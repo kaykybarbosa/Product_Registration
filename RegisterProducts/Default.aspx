@@ -9,7 +9,7 @@
 
     <div class="form">
             
-        <div class="form-header">
+        <header class="form-header">
             <div class="title">
                 <h1>Product Registration</h1>
             </div>
@@ -17,10 +17,9 @@
             <div class="search-button">
                 <asp:ImageButton ID="ibtnSearch" runat="server" ImageUrl="\Images\lupa.png" ToolTip="Search" width="30px" Height="30px"/>
             </div>
-        </div>
+        </header>
             
-        <div class="input-group">
-
+        <main class="input-group">
             <div class="fields">
                 <asp:Label ID="lblProductId" CssClass="labelForm" runat="server" Text="Nº Product"></asp:Label>
                 <asp:TextBox ID="txtProductid" CssClass="textBox" runat="server" TextMode="Number"></asp:TextBox>
@@ -29,6 +28,7 @@
             <div class="fields">
                 <asp:Label ID="lblName" CssClass="labelForm" runat="server" Text="Name"></asp:Label>
                 <asp:TextBox ID="txtName" CssClass="textBox" runat="server"></asp:TextBox>
+                <asp:Label ID="lblRulesName" CssClass="rule-message" runat="server" Text="Name length cannot be longer than 60 characters." Visible="false"></asp:Label>
             </div>
            
             <div class="fields">
@@ -39,11 +39,13 @@
             <div class="fields">
                 <asp:Label ID="lblColor" CssClass="labelForm" runat="server" Text="Color"></asp:Label> 
                 <asp:TextBox ID="txtColor" CssClass="textBox" runat="server"></asp:TextBox>
+                <asp:Label ID="lblRulesColor" CssClass="rule-message" runat="server" Text="Make sure it doesn't exceed 30 characters." Visible="false"></asp:Label>
             </div>
 
             <div class="fields">
                 <asp:Label ID="lblRegistrationDate" CssClass="labelForm" runat="server" Text="Registration Date"></asp:Label> 
                 <asp:TextBox ID="txtRegistrationDate" CssClass="accordion-header textBox registerDate" runat="server" TextMode="Date"></asp:TextBox>
+                <asp:Label ID="lblRulesRegistrationDate" CssClass="break-row" runat="server" Text="" Visible="false"></asp:Label>
             </div>
 
              <div class="fields">
@@ -57,8 +59,9 @@
             <div class="fields"> 
                 <asp:Label ID="lblSpecification" CssClass="labelForm" runat="server" Text="Specification"></asp:Label> 
                 <asp:TextBox ID="txtSpecification" CssClass="textBox" runat="server" TextMode="MultiLine"></asp:TextBox>
+                <asp:Label ID="lblRulesSpecification" CssClass="rule-message" runat="server" Text="Make sure it doesn't exceed 255 characters." Visible="false"></asp:Label>
             </div>
-        </div>
+        </main>
 
         <div class="buttons">
             <asp:Button ID="btnSave" CssClass="btn btnHover btn-sm" runat="server" Text="Save" Width="87px"/>
@@ -96,7 +99,7 @@
 
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:StringConectionRegisterProduct%>" SelectCommand="SELECT * FROM [PRODUCTS]"></asp:SqlDataSource>
-    <asp:Label ID="lblCounter" CssClass="counter badge" runat="server" Text="Label"></asp:Label>
 </div>
+<asp:Label ID="lblCounter" CssClass="counter badge" runat="server" Text="Label"></asp:Label>
 
 </asp:Content>
