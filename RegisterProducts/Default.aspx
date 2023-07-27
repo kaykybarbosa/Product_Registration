@@ -8,7 +8,11 @@
     </div>
 
     <div class="form">
-            
+
+        <div class="information-box">
+            <asp:Label ID="lblInformation" CssClass="" runat="server" Text="" Visible="false"></asp:Label>
+        </div>
+
         <header class="form-header">
             <div class="title">
                 <h1>Product Registration</h1>
@@ -45,7 +49,6 @@
             <div class="fields">
                 <asp:Label ID="lblRegistrationDate" CssClass="labelForm" runat="server" Text="Registration Date"></asp:Label> 
                 <asp:TextBox ID="txtRegistrationDate" CssClass="accordion-header textBox registerDate" runat="server" TextMode="Date"></asp:TextBox>
-                <asp:Label ID="lblRulesRegistrationDate" CssClass="break-row" runat="server" Text="" Visible="false"></asp:Label>
             </div>
 
              <div class="fields">
@@ -73,7 +76,7 @@
 </div>
 
 <div class="gridProducts">
-    <asp:GridView ID="gridView" CssClass=" table table-responsive table-bordered table-condesed gridView" runat="server" AllowPaging="true" PageSize="10" AutoGenerateColumns="False" DataKeyNames="PRODUCT_ID"
+    <asp:GridView ID="gridView" CssClass=" table table-responsive table-bordered table-condesed gridView" runat="server" AllowPaging="true" PageSize="5" AutoGenerateColumns="False" DataKeyNames="PRODUCT_ID"
         HorizontalAlign="Center" AllowSorting="True" BorderColor="MidnightBlue" HeaderStyle-BorderColor="MidnightBlue">
             
         <Columns>

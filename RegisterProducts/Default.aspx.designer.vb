@@ -23,6 +23,15 @@ Partial Public Class _Default
     Protected WithEvents imgInformation As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
+    '''Controle lblInformation.
+    '''</summary>
+    '''<remarks>
+    '''Campo gerado automaticamente.
+    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+    '''</remarks>
+    Protected WithEvents lblInformation As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Controle ibtnSearch.
     '''</summary>
     '''<remarks>
@@ -138,15 +147,6 @@ Partial Public Class _Default
     '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
     '''</remarks>
     Protected WithEvents txtRegistrationDate As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''Controle lblRulesRegistrationDate.
-    '''</summary>
-    '''<remarks>
-    '''Campo gerado automaticamente.
-    '''Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-    '''</remarks>
-    Protected WithEvents lblRulesRegistrationDate As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''Controle lblStatus.

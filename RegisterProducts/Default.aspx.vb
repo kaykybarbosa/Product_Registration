@@ -3,9 +3,6 @@
 Public Class _Default
     Inherits Page
 
-    Private strStringConnection As String = ConfigurationManager.ConnectionStrings("StringConectionRegisterProduct").ToString
-    Private connection As New SqlConnection(strStringConnection)
-
     Private PRODUCT_ID As Integer
     Private NAME As String
     Private COLOR As String
@@ -14,6 +11,7 @@ Public Class _Default
     Private STATUS As String
     Private SPECIFICATION As String
 
+    Private CONNECTION As New AccessConnection
     Private VALIDATION As ValidationTexts
     Private ReadOnly VALID As String = "VALID"
 
@@ -21,248 +19,8 @@ Public Class _Default
         ListProduct()
     End Sub
 
-    Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
-        connection = New SqlConnection(strStringConnection)
-        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkStatus, txtSpecification)
-        Dim strSql As New StringBuilder
-
-        Dim result = VALIDATION.Validate_Fields
-        If result.Equals(VALID) Then
-            NAME = txtName.Text
-            SPECIFICATION = txtSpecification.Text
-            QUANTITY = txtQuantity.Text
-            COLOR = txtColor.Text
-            REGISTRATION_DATE = txtRegistrationDate.Text
-
-            If checkStatus.Items(0).Selected Then
-                STATUS = "Available"
-            Else
-                STATUS = "Unavailable"
-            End If
-        Else
-            ShowLblRequired(result)
-
-            Exit Sub
-        End If
-
-        Try
-            connection.Open()
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Error Connection!")
-        End Try
-
-        strSql.Append("INSERT INTO PRODUCTS VALUES (")
-        strSql.Append(" '" & NAME & "' , ")
-        strSql.Append(" '" & SPECIFICATION & "' , ")
-        strSql.Append(" '" & QUANTITY & "' , ")
-        strSql.Append(" '" & COLOR & "' , ")
-        strSql.Append(" '" & REGISTRATION_DATE & "' , ")
-        strSql.Append(" '" & STATUS & "' )")
-
-        Dim command As New SqlCommand(strSql.ToString, connection)
-        command.ExecuteNonQuery()
-
-        Clear()
-        ListProduct()
-        ClearLblRequired()
-
-        connection.Close()
-
-    End Sub
-    Protected Sub ListProduct(Optional sort As String = "PRODUCT_ID")
-        connection = New SqlConnection(strStringConnection)
-        Dim strSql As New StringBuilder
-
-        Try
-            connection.Open()
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "Error!")
-        End Try
-
-        strSql.Append("SELECT * FROM PRODUCTS")
-        strSql.Append(" ORDER BY '" & sort & "'")
-
-        Dim command As New SqlCommand(strSql.ToString, connection)
-        Dim sd As New SqlDataAdapter(command)
-        Dim dt As New DataTable
-
-        sd.Fill(dt)
-
-        gridView.DataSource = dt
-        gridView.DataBind()
-
-        lblProducts_Quantity()
-        connection.Close()
-    End Sub
-
-    Protected Sub lblProducts_Quantity()
-        Dim counterProducts = DirectCast(gridView.DataSource, DataTable).Rows.Count
-
-        If counterProducts <= 0 Then
-            lblCounter.Visible = False
-        Else
-            lblCounter.Visible = True
-            lblCounter.Text = counterProducts & " product(s)"
-        End If
-    End Sub
-
-    Protected Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-        connection = New SqlConnection(strStringConnection)
-        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkStatus, txtSpecification)
-        Dim strSql As New StringBuilder
-
-        Dim result = VALIDATION.Validate_Fields(isUpdate:=True)
-        If result.Equals(VALID) Then
-            PRODUCT_ID = txtProductid.Text
-            NAME = txtName.Text
-            QUANTITY = txtQuantity.Text
-            COLOR = txtColor.Text
-            SPECIFICATION = txtSpecification.Text
-
-            If checkStatus.Items(0).Selected Then
-                STATUS = "Available"
-            Else
-                STATUS = "Unavailable"
-            End If
-        Else
-            ShowLblRequired(result, isUpdate:=True)
-
-            Exit Sub
-        End If
-
-        Try
-            connection.Open()
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Error Connection!")
-        End Try
-
-        strSql.Append("UPDATE PRODUCTS SET")
-        strSql.Append(" NAME = '" & NAME & "'")
-        strSql.Append(" , QUANTITY = '" & QUANTITY & "'")
-        strSql.Append(" , COLOR = '" & COLOR & "'")
-        strSql.Append(" , SPECIFICATION = '" & SPECIFICATION & "'")
-        strSql.Append(" , STATUS = '" & STATUS & "'")
-        strSql.Append(" WHERE PRODUCT_ID = '" & PRODUCT_ID & "'")
-
-        Dim command As New SqlCommand(strSql.ToString, connection)
-        Dim row As Integer = command.ExecuteNonQuery()
-
-        If row <= 0 Then
-            MsgBox("Product not updated!", MsgBoxStyle.Information)
-        End If
-
-        Clear()
-        ListProduct()
-        ClearLblRequired()
-
-        connection.Close()
-    End Sub
-
-    Protected Sub gridview_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gridView.SelectedIndexChanged
-        connection = New SqlConnection(strStringConnection)
-
-        Try
-            connection.Open()
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Error!")
-        End Try
-
-        PRODUCT_ID = gridView.SelectedValue
-
-        Dim command As New SqlCommand("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
-        Dim reader As SqlDataReader
-
-        reader = command.ExecuteReader()
-
-        If reader.HasRows Then
-
-            While reader.Read()
-                txtProductid.Text = reader("PRODUCT_ID").ToString()
-                txtName.Text = reader("NAME").ToString()
-                txtQuantity.Text = reader("QUANTITY").ToString()
-                txtColor.Text = reader("COLOR").ToString()
-                txtSpecification.Text = reader("SPECIFICATION").ToString()
-
-                If reader("STATUS").ToString.Equals(checkStatus.Items(0).Text) Then
-                    checkStatus.Items(0).Selected = True
-                    checkStatus.Items(1).Selected = False
-                Else
-                    checkStatus.Items(1).Selected = True
-                    checkStatus.Items(0).Selected = False
-                End If
-
-            End While
-        End If
-
-        reader.Close()
-        connection.Close()
-
-    End Sub
-
-    Protected Sub gridView_RowCommand(ByVal source As Object, ByVal e As GridViewCommandEventArgs) Handles gridView.RowCommand
-
-    End Sub
-
-    Protected Sub gridView_Delete(ByVal source As Object, e As GridViewDeleteEventArgs) Handles gridView.RowDeleting
-        connection = New SqlConnection(strStringConnection)
-
-        Dim result = MsgBox("Are you sure to delete?", MsgBoxStyle.YesNo, "DELETE")
-
-        If result.Equals(vbNo) Then
-            Exit Sub
-        End If
-
-        PRODUCT_ID = gridView.DataKeys(e.RowIndex)("PRODUCT_ID").ToString
-
-        Try
-            connection.Open()
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Error Connection!")
-        End Try
-
-        Dim command As New SqlCommand("DELETE PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'", connection)
-        command.ExecuteNonQuery()
-
-        Clear()
-        ListProduct()
-        connection.Close()
-    End Sub
-
-    Protected Sub gridView_Sorting(ByVal source As Object, ByVal e As GridViewSortEventArgs) Handles gridView.Sorting
-        ViewState("OrderBy") = e.SortExpression
-        ListProduct(ViewState("OrderBy"))
-    End Sub
-
-    Protected Sub gridView_PageIndexChanging(ByVal source As Object, e As GridViewPageEventArgs) Handles gridView.PageIndexChanging
-        gridView.PageIndex = e.NewPageIndex
-        ListProduct()
-    End Sub
-
-    Protected Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
-        txtProductid.Text = ""
-        txtName.Text = ""
-        txtQuantity.Text = ""
-        txtColor.Text = ""
-        txtRegistrationDate.Text = ""
-        checkStatus.Items(0).Selected = False
-        checkStatus.Items(1).Selected = False
-        txtSpecification.Text = ""
-
-        ClearMensageRules()
-    End Sub
-    Private Sub Clear()
-        txtProductid.Text = ""
-        txtName.Text = ""
-        txtQuantity.Text = ""
-        txtColor.Text = ""
-        txtRegistrationDate.Text = ""
-        checkStatus.Items(0).Selected = False
-        checkStatus.Items(1).Selected = False
-        txtSpecification.Text = ""
-    End Sub
-
     Protected Sub ibtnSearch_Click(sender As Object, e As ImageClickEventArgs) Handles ibtnSearch.Click
-        connection = New SqlConnection(strStringConnection)
+        Dim dt As DataTable
         Dim strSql As New StringBuilder
 
         strSql.Append("SELECT * FROM PRODUCTS WHERE NAME IS NOT NULL")
@@ -288,12 +46,12 @@ Public Class _Default
         End If
 
         If checkStatus.Items(0).Selected Then
-            Dim status As String = checkStatus.Items(0).Text
+            STATUS = checkStatus.Items(0).Text
             strSql.Append(" AND STATUS = '" & status & "'")
         End If
 
         If checkStatus.Items(1).Selected Then
-            Dim status As String = checkStatus.Items(1).Text
+            STATUS = checkStatus.Items(1).Text
             strSql.Append(" AND STATUS = '" & status & "'")
         End If
 
@@ -302,24 +60,241 @@ Public Class _Default
             strSql.Append(" AND SPECIFICATION LIKE '%" & SPECIFICATION & "%'")
         End If
 
-        Try
-            connection.Open()
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Error Connection!")
-        End Try
-
-        Dim command As New SqlCommand(strSql.ToString, connection)
-        command.ExecuteNonQuery()
-
-        Dim sd As New SqlDataAdapter(command)
-        Dim dt As New DataTable
-
-        sd.Fill(dt)
+        dt = CONNECTION.ExecuteDataTable(strSql.ToString)
 
         gridView.DataSource = dt
         gridView.DataBind()
 
-        connection.Close()
+        lblProducts_Quantity()
+
+    End Sub
+
+    Protected Sub btnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSave.Click
+        Dim strSql As New StringBuilder
+
+        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkStatus, txtSpecification)
+
+        Dim result = VALIDATION.Validate_Fields
+        If result.Equals(VALID) Then
+            NAME = txtName.Text
+            SPECIFICATION = txtSpecification.Text
+            QUANTITY = txtQuantity.Text
+            COLOR = txtColor.Text
+            REGISTRATION_DATE = txtRegistrationDate.Text
+
+            If checkStatus.Items(0).Selected Then
+                STATUS = "Available"
+            Else
+                STATUS = "Unavailable"
+            End If
+        Else
+            ShowLblRequired(result)
+
+            Exit Sub
+        End If
+
+        strSql.Append("INSERT INTO PRODUCTS VALUES (")
+        strSql.Append(" '" & NAME & "' , ")
+        strSql.Append(" '" & SPECIFICATION & "' , ")
+        strSql.Append(" '" & QUANTITY & "' , ")
+        strSql.Append(" '" & COLOR & "' , ")
+        strSql.Append(" '" & REGISTRATION_DATE & "' , ")
+        strSql.Append(" '" & STATUS & "' )")
+
+        Dim rows As Integer = CONNECTION.ExecuteSqlCommand(strSql.ToString)
+
+        If rows <= 0 Then
+            ShowInformation("Falid while adding product!", False)
+
+            Exit Sub
+        End If
+
+        ShowInformation("Product added successfully.")
+
+        ListProduct()
+        ClearLblRequired()
+
+    End Sub
+
+    Protected Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        Dim strSql As New StringBuilder
+
+        VALIDATION = New ValidationTexts(txtProductid, txtName, txtQuantity, txtColor, txtRegistrationDate, checkStatus, txtSpecification)
+
+        Dim result As String = VALIDATION.Validate_Fields(isUpdate:=True)
+        If result.Equals(VALID) Then
+            PRODUCT_ID = txtProductid.Text
+            NAME = txtName.Text
+            QUANTITY = txtQuantity.Text
+            COLOR = txtColor.Text
+            SPECIFICATION = txtSpecification.Text
+
+            If checkStatus.Items(0).Selected Then
+                STATUS = "Available"
+            Else
+                STATUS = "Unavailable"
+            End If
+        Else
+            ShowLblRequired(result, isUpdate:=True)
+
+            Exit Sub
+        End If
+
+        strSql.Append("UPDATE PRODUCTS SET")
+        strSql.Append(" NAME = '" & NAME & "'")
+        strSql.Append(" , QUANTITY = '" & QUANTITY & "'")
+        strSql.Append(" , COLOR = '" & COLOR & "'")
+        strSql.Append(" , SPECIFICATION = '" & SPECIFICATION & "'")
+        strSql.Append(" , STATUS = '" & STATUS & "'")
+        strSql.Append(" WHERE PRODUCT_ID = '" & PRODUCT_ID & "'")
+
+        Dim rows As Integer = CONNECTION.ExecuteSqlCommand(strSql.ToString)
+
+        If rows <= 0 Then
+            ShowInformation("Product with this N° Product not found.", False)
+
+            Exit Sub
+        End If
+
+        ShowInformation("Product updated successfully.")
+
+        ListProduct()
+        ClearLblRequired()
+
+    End Sub
+
+    Protected Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        txtProductid.Text = ""
+        txtName.Text = ""
+        txtQuantity.Text = ""
+        txtColor.Text = ""
+        txtRegistrationDate.Text = ""
+        checkStatus.Items(0).Selected = False
+        checkStatus.Items(1).Selected = False
+        txtSpecification.Text = ""
+        lblInformation.Visible = False
+
+        ClearMensageRules()
+
+    End Sub
+
+    Protected Sub gridview_SelectedIndexChanged(sender As Object, e As EventArgs) Handles gridView.SelectedIndexChanged
+        Dim reader As SqlDataReader
+        Dim strSql As New StringBuilder
+
+        PRODUCT_ID = gridView.SelectedValue
+
+        strSql.Append("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'")
+
+        reader = CONNECTION.ExecuteSqlCommandReader(strSql.ToString)
+
+        If reader.HasRows Then
+
+            While reader.Read()
+                txtProductid.Text = reader("PRODUCT_ID").ToString()
+                txtName.Text = reader("NAME").ToString()
+                txtQuantity.Text = reader("QUANTITY").ToString()
+                txtColor.Text = reader("COLOR").ToString()
+                txtSpecification.Text = reader("SPECIFICATION").ToString()
+
+                If reader("STATUS").ToString.Equals(checkStatus.Items(0).Text) Then
+                    checkStatus.Items(0).Selected = True
+                    checkStatus.Items(1).Selected = False
+                Else
+                    checkStatus.Items(1).Selected = True
+                    checkStatus.Items(0).Selected = False
+                End If
+
+            End While
+        End If
+
+        reader.Close()
+
+    End Sub
+
+    Protected Sub ListProduct(Optional sort As String = "PRODUCT_ID")
+        Dim dt As DataTable
+        Dim strSql As New StringBuilder
+
+        strSql.Append("SELECT * FROM PRODUCTS")
+        strSql.Append(" ORDER BY '" & sort & "'")
+
+        dt = CONNECTION.ExecuteDataTable(strSql.ToString)
+
+        gridView.DataSource = dt
+        gridView.DataBind()
+
+        lblProducts_Quantity()
+
+    End Sub
+
+    Protected Sub lblProducts_Quantity()
+        Dim counterProducts = DirectCast(gridView.DataSource, DataTable).Rows.Count
+
+        If counterProducts <= 0 Then
+            lblCounter.Visible = False
+        Else
+            lblCounter.Visible = True
+            lblCounter.Text = counterProducts & " product(s)"
+        End If
+    End Sub
+
+    Protected Sub gridView_Delete(ByVal source As Object, e As GridViewDeleteEventArgs) Handles gridView.RowDeleting
+        Dim strSql As New StringBuilder
+        Dim result = MsgBox("Are you sure to delete?", MsgBoxStyle.YesNo, "DELETE")
+
+        If result.Equals(vbNo) Then
+            Exit Sub
+        End If
+
+        PRODUCT_ID = gridView.DataKeys(e.RowIndex)("PRODUCT_ID").ToString
+
+        strSql.Append("DELETE PRODUCTS WHERE PRODUCT_ID = '" & PRODUCT_ID & "'")
+
+        Dim rows As Integer = CONNECTION.ExecuteSqlCommand(strSql.ToString)
+
+        If rows <= 0 Then
+            ShowInformation("Falid to delete the product!", False)
+
+            Exit Sub
+        End If
+
+        ShowInformation("Product deleted successfully.")
+
+        ListProduct()
+    End Sub
+
+    Protected Sub gridView_Sorting(ByVal source As Object, ByVal e As GridViewSortEventArgs) Handles gridView.Sorting
+        ViewState("OrderBy") = e.SortExpression
+        ListProduct(ViewState("OrderBy"))
+    End Sub
+
+    Protected Sub gridView_PageIndexChanging(ByVal source As Object, e As GridViewPageEventArgs) Handles gridView.PageIndexChanging
+        gridView.PageIndex = e.NewPageIndex
+        ListProduct()
+    End Sub
+
+    Private Sub Clear()
+        txtProductid.Text = ""
+        txtName.Text = ""
+        txtQuantity.Text = ""
+        txtColor.Text = ""
+        txtRegistrationDate.Text = ""
+        checkStatus.Items(0).Selected = False
+        checkStatus.Items(1).Selected = False
+        txtSpecification.Text = ""
+    End Sub
+
+    Private Sub ShowInformation(ByVal text As String, Optional status As Boolean = True)
+        If status Then
+            lblInformation.CssClass = "lblinformation-success"
+        Else
+            lblInformation.CssClass = "lblinformation-falid"
+        End If
+
+        lblInformation.Text = text
+        lblInformation.Visible = True
+
     End Sub
 
     Private Sub ShowLblRequired(Optional lblExample As String = "", Optional isUpdate As Boolean = False)
@@ -426,4 +401,5 @@ Public Class _Default
         lblRulesColor.Visible = False
         lblRulesSpecification.Visible = False
     End Sub
+
 End Class
