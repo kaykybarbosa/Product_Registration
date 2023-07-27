@@ -37,135 +37,234 @@ RegisterProducts
  Retorna o objeto de log Asp.
  </summary>
 </member>
-<member name="F:RegisterProducts._Default._Label1">
+<member name="F:RegisterProducts._Default._imgInformation">
 <summary>
-Controle Label1.
+Controle imgInformation.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._txtname">
+<member name="F:RegisterProducts._Default._lblInformation">
 <summary>
-Controle txtname.
+Controle lblInformation.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._Label2">
+<member name="F:RegisterProducts._Default._ibtnSearch">
 <summary>
-Controle Label2.
+Controle ibtnSearch.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._txtspecification">
+<member name="F:RegisterProducts._Default._lblProductId">
 <summary>
-Controle txtspecification.
+Controle lblProductId.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._Label3">
+<member name="F:RegisterProducts._Default._txtProductid">
 <summary>
-Controle Label3.
+Controle txtProductid.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._txtquantity">
+<member name="F:RegisterProducts._Default._lblName">
 <summary>
-Controle txtquantity.
+Controle lblName.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._Label4">
+<member name="F:RegisterProducts._Default._txtName">
 <summary>
-Controle Label4.
+Controle txtName.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._txtcolor">
+<member name="F:RegisterProducts._Default._lblRulesName">
 <summary>
-Controle txtcolor.
+Controle lblRulesName.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._Label5">
+<member name="F:RegisterProducts._Default._lblQuantity">
 <summary>
-Controle Label5.
+Controle lblQuantity.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._txtregistrationdate">
+<member name="F:RegisterProducts._Default._txtQuantity">
 <summary>
-Controle txtregistrationdate.
+Controle txtQuantity.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._Label6">
+<member name="F:RegisterProducts._Default._lblColor">
 <summary>
-Controle Label6.
+Controle lblColor.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._checkregular">
+<member name="F:RegisterProducts._Default._txtColor">
 <summary>
-Controle checkregular.
+Controle txtColor.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._checkinregular">
+<member name="F:RegisterProducts._Default._lblRulesColor">
 <summary>
-Controle checkinregular.
+Controle lblRulesColor.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._btnsave">
+<member name="F:RegisterProducts._Default._lblRegistrationDate">
 <summary>
-Controle btnsave.
+Controle lblRegistrationDate.
 </summary>
 <remarks>
 Campo gerado automaticamente.
 Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
-<member name="F:RegisterProducts._Default._btndelete">
+<member name="F:RegisterProducts._Default._txtRegistrationDate">
 <summary>
-Controle btndelete.
+Controle txtRegistrationDate.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._lblStatus">
+<summary>
+Controle lblStatus.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._checkStatus">
+<summary>
+Controle checkStatus.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._lblSpecification">
+<summary>
+Controle lblSpecification.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._txtSpecification">
+<summary>
+Controle txtSpecification.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._lblRulesSpecification">
+<summary>
+Controle lblRulesSpecification.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._btnSave">
+<summary>
+Controle btnSave.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._btnUpdate">
+<summary>
+Controle btnUpdate.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._btnClear">
+<summary>
+Controle btnClear.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._gridView">
+<summary>
+Controle gridView.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._SqlDataSource1">
+<summary>
+Controle SqlDataSource1.
+</summary>
+<remarks>
+Campo gerado automaticamente.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+</remarks>
+</member>
+<member name="F:RegisterProducts._Default._lblCounter">
+<summary>
+Controle lblCounter.
 </summary>
 <remarks>
 Campo gerado automaticamente.
@@ -178,7 +277,7 @@ Controle MainContent.
 </summary>
 <remarks>
 Campo gerado automaticamente.
-Para modificar, mova a declaração de campo do arquivo do designer para o arquivo code-behind.
+Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
 </remarks>
 </member>
 <member name="F:RegisterProducts.Site_Mobile._Head1">
